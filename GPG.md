@@ -91,12 +91,8 @@ Enter pass phrase
 
 3. make key trustable
 ```shell
-gpg --edit-key <key id>
+(echo 2; echo y; echo save) | gpg --command-fd 0 --no-tty --no-greeting -q --edit-key <key id> trust
 ```
-trust
-5
-y
-Ctrl+D
 
 4. enable all commit signing
 ```shell
