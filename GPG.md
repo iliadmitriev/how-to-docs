@@ -89,7 +89,16 @@ _EOF
 ```
 Enter pass phrase
 
-3. enable all commit signing
+3. make key trustable
+```shell
+gpg --edit-key <key id>
+```
+trust
+5
+y
+Ctrl+D
+
+4. enable all commit signing
 ```shell
 git config --global commit.gpgsign true
 ```
