@@ -111,7 +111,12 @@ Enter pass phrase
 (echo 5; echo y; echo save) | gpg --command-fd 0 --no-tty --no-greeting -q --edit-key <key id> trust
 ```
 
-4. enable all commit signing
+4. remove password from key
+```shell
+(echo save) | gpg --command-fd 0 --no-tty --no-greeting -q --edit-key <key id> passwd
+```
+
+5. enable all commit signing
 ```shell
 git config --global commit.gpgsign true
 ```
