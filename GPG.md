@@ -42,7 +42,7 @@ gpg --list-secret-keys --keyid-format LONG
 ----------------------------------
 sec   rsa3072/5B34A94A1139F75E 2021-03-04 [SC] [   годен до: 2023-03-04]
       B15A5B729A67752D7AA0F5645B34A94A1139F75E
-uid               [  абсолютно ] Ilia Dmitriev <ilia.dmitriev@gmail.com>
+uid               [  абсолютно ] Ilia Dmitriev <your.email.address@gmail.com>
 ssb   rsa3072/318B84706760C3D7 2021-03-04 [E] [   годен до: 2023-03-04]
 ```
 
@@ -62,7 +62,7 @@ env | grep GPG_TTY
 
 6. print out public key part
 ```shell
-gpg --armor --export ilia.dmitriev@gmail.com
+gpg --armor --export your.email.address@gmail.com
 ```
 
 7. add public key part to github setting
