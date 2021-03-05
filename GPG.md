@@ -4,16 +4,33 @@ this manual for macOS (tested on Big Sur)
 
 ## installation
 
-1. install Gnu Version of GPG
+1. install Gnu Version of GPG for macOS
 ```shell
 brew install gnupg
+brew install pinentry-mac
+```
+
+1.1. Find pinentry-mac installation path
+```shell
+% which pinentry-mac  
+/opt/homebrew/bin/pinentry-mac
+```
+1.2. Setup pinentry
+```shell
+cat >> ~/.gnupg/gpg-agent.conf << EOF_
+pinentry-program /opt/homebrew/bin/pinentry-mac
+EOF_
+```
+1.3. restart `gpg-agent`
+```shell
+killall -1 gpg-agent
 ```
 
 2. Generate private and public part of key
 ```shell
 gpg --gen-key
 ```
-Enter pass phrase twice
+Enter pass phrase twice (should leave it empty in order PyCharm work)
 
 3. Print out keys list
 ```shell
@@ -49,9 +66,9 @@ gpg --armor --export ilia.dmitriev@gmail.com
 ```
 
 7. add public key part to github setting
-   https://github.com/settings/keys
-   press `New GPG key` button and paste your public key
-   then press `Add GPG key`
+* https://github.com/settings/keys
+* press `New GPG key` button 
+* paste your public key and press `Add GPG key`
 
 
 ## git command line usage
