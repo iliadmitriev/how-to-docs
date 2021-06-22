@@ -17,7 +17,22 @@ npm install --save-dev jest vue-jest @vue/test-utils
 Install modules
 
 ```bash
-npm install --save-dev babel-jest @babel/core @babel/preset-env babel-core
+npm install --save-dev babel-core babel-jest @babel/core @babel/preset-env @babel/plugin-transform-runtime
+```
+
+Modify `.babelrc` file
+
+```json
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "env": {
+    "test": {
+      "plugins": ["@babel/plugin-transform-runtime"]
+    }
+  }
+}
 ```
 
 4. CSS, LESS, SASS files include (stub)
