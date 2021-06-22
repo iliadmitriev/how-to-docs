@@ -67,7 +67,9 @@ module.exports = {
   ],
 
   moduleNameMapper: {
-    "^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
+    "^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+    // enable import beginning with @/ - as reference to <root>/src/ folder
+    "^@/(.*)$": "<rootDir>/src/$1"
   },
 
   modulePathIgnorePatterns: [
