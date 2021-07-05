@@ -35,7 +35,7 @@ Modify `.babelrc` file
       "plugins": ["@babel/plugin-transform-runtime"]
     }
   },
-  plugins: [
+  "plugins": [
     ["@babel/transform-runtime"]
   ]
 }
