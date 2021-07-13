@@ -104,3 +104,13 @@ module.exports = {
 }
 
 ```
+
+6. Vuetify fix `SyntaxError: Unexpected token 'export'`
+
+add to config file `jest.config.js`
+
+```javascript
+  transformIgnorePatterns: [
+    'node_modules/(?!vuetify)'
+  ],
+```
