@@ -178,6 +178,6 @@ openssl@1.1 smime -encrypt -engine gost -binary -noattr -gost89 \
 Decode file
 ```shell
 openssl@1.1 smime -decrypt -engine gost -binary -noattr \
--inkey ca.key -in output.enc -inform DER -out output.2.txt 
+            -inkey ca.key -in output.enc -inform DER -out output.2.txt 
 ``` 
 
