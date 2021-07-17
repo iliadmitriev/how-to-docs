@@ -156,6 +156,20 @@ openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
 openssl@1.1 x509 -in ca.cer -text -noout
 ```
 
+## Check if a private key matches a certificate
+
+Generate public key md5hash for private key
+```shell
+openssl@1.1 pkey -in ca.key -pubout -outform pem | openssl@1.1 md5
+```
+
+Generate certificate public key md5hash
+```shell
+openssl@1.1 x509 -in ca.cer -noout -pubkey | openssl@1.1 md5
+```
+
+Both md5 hashes should match
+
 ## Sign and check signature
 
 Create test file `input.txt`
