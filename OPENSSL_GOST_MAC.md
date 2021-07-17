@@ -121,14 +121,28 @@ Both commands should output:
 
 # Usage
 
+List cipher algorithm
+```shell
+openssl@1.1 list --cipher-algorithms
+# or
+openssl enc -engine gost -ciphers
+```
+
+List digest algorithms
+```shell
+openssl@1.1 list --digest-algorithms
+# or
+openssl@1.1 dgst -list 
+```
+
 ## Generate key and certificate
 
-generate gost 2012 private key 
+Generate gost 2012 private key 
 ```shell
 openssl@1.1 genpkey -algorithm gost2012_256 \
             -pkeyopt paramset:TCB -out ca.key
 ```
-generate gost 2012 certificate
+Generate gost 2012 certificate
 ```shell
 openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
             -key ca.key -out ca.cer
