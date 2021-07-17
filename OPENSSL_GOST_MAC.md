@@ -13,9 +13,10 @@ Using:
 ## Prepare
 
 Install brew https://brew.sh
+
 Install macOS build tools
 ```shell
-xcode-select -s
+xcode-select --install
 ```
 
 install brew packages
