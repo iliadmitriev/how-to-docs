@@ -66,6 +66,8 @@ ls -la ${ENGINESDIR}
 
 ## Configure
 
+[Sample configuration](https://github.com/gost-engine/engine/blob/master/example.conf)
+
 Save `openssl.cnf` config path to OPENSSLCFG variable
 
 ```shell
