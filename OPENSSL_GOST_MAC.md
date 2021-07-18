@@ -125,7 +125,7 @@ List cipher algorithm
 ```shell
 openssl@1.1 list --cipher-algorithms
 # or
-openssl enc -engine gost -ciphers
+openssl@1.1 enc -engine gost -ciphers
 ```
 
 List digest algorithms
