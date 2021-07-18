@@ -148,7 +148,7 @@ openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
             -key ca.key -out ca.cer
 ```
 
-Alernative way of gost 2012 certificate generation
+Alernative non-interactive way of gost 2012 certificate generation with predefined input values
 ```
 openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
    -subj "/C=RU/ST=Russia/L=Moscow/O=Internet/OU=Dev/CN=localhost/emailAddress=admin@localhost" \
