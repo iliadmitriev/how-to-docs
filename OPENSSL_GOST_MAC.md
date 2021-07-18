@@ -146,11 +146,12 @@ Generate gost 2012 certificate
 ```shell
 openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
             -key ca.key -out ca.cer
-            
-# or
+```
 
+Alernative way of gost 2012 certificate generation
+```
 openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
-   -subj "/C=RU/ST=Russia/L=Moscow/O=Internet/OU=Internet CA/CN=Internet CA Root" \
+   -subj "/C=RU/ST=Russia/L=Moscow/O=Internet/OU=Dev/CN=localhost/emailAddress=admin@localhost" \
    -key ca.key -out ca.cer
 ```
 
