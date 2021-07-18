@@ -157,8 +157,14 @@ openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
 
 [Read for more](https://github.com/gost-engine/engine/blob/master/README.gost)
 
-## Check certificate
+## Check key and certificate
 
+Check key is valid
+```shell
+openssl@1.1 pkey -in ca.key -check -pubcheck -noout
+```
+
+Check certificate is valid
 ```shell
 openssl@1.1 x509 -in ca.cer -text -noout
 ```
