@@ -163,6 +163,13 @@ openssl@1.1 req -new -x509 -md_gost12_256 -days 365 \
 openssl@1.1 x509 -in ca.cer -text -noout
 ```
 
+## Parse ASN.1 structure of key or certificate
+
+```shell
+openssl asn1parse -i -in ca.cer -dump
+openssl asn1parse -i -in ca.key -dump
+```
+
 ## Check if a private key matches a certificate
 
 Generate public key md5hash for private key
