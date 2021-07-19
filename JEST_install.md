@@ -105,7 +105,33 @@ module.exports = {
 
 ```
 
-6. Vuetify fix `SyntaxError: Unexpected token 'export'`
+6. Setup vuetify
+
+```javascript
+import {createLocalVue} from "@vue/test-utils";
+import Vuetify from "vuetify";
+import Component from "@/components/Component.vue";
+
+// vuetify hack
+import Vue from "vue";
+Vue.use(Vuetify)
+
+// vuetify instance
+vuetify = new Vuetify()
+
+// create localVue instance with vuetify
+localVue = createLocalVue()
+
+// mount component which uses vuetify
+const wrapper = mount(Component, {
+      localVue,
+      vuetify
+    })
+
+
+``
+
+Vuetify fix `SyntaxError: Unexpected token 'export'`
 
 add to config file `jest.config.js`
 
