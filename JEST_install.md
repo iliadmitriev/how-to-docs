@@ -129,10 +129,9 @@ const wrapper = mount(Component, {
     })
 
 
-``
+```
 
 Vuetify fix `SyntaxError: Unexpected token 'export'`
-
 add to config file `jest.config.js`
 
 ```javascript
