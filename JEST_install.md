@@ -145,7 +145,7 @@ module.exports = {
 }
 ```
 
-7. Set up a list of modules in the suite which is executed before each test file
+7. Set up `setup.js` module which is executed before each test file
 
 create file `tests/setup.js`
 
