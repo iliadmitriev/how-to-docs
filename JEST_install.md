@@ -110,7 +110,47 @@ module.exports = {
 add to config file `jest.config.js`
 
 ```javascript
+module.exports = {
+// ...
+
   transformIgnorePatterns: [
     'node_modules/(?!vuetify)'
   ],
+// ...
+}
+```
+
+7. Set up the testing framework before each test file in the suite `setup.js` 
+
+create file `tests/setup.js`
+
+```javascript
+import {createLocalVue} from "@vue/test-utils";
+import Vuex from "vuex";
+
+// localVue
+global.localVue = createLocalVue()
+localVue.use(Vuex)
+
+// fetch function
+global.fetch = jest.fn()
+
+// localStorage.getItem
+Storage.prototype.getItem = jest.fn()
+
+// localStorage.setItem
+Storage.prototype.setItem = jest.fn()
+
+```
+
+add to config file `jest.config.js`
+
+```javascript
+module.exports = {
+//...
+
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
+
+//...
+}
 ```
