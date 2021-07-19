@@ -120,7 +120,7 @@ module.exports = {
 }
 ```
 
-7. Set up the testing framework before each test file in the suite `setup.js` 
+7. Set up a list of modules in the suite which is executed before each test file
 
 create file `tests/setup.js`
 
@@ -128,17 +128,17 @@ create file `tests/setup.js`
 import {createLocalVue} from "@vue/test-utils";
 import Vuex from "vuex";
 
-// localVue
+// localVue variable
 global.localVue = createLocalVue()
 localVue.use(Vuex)
 
-// fetch function
+// fetch function mock
 global.fetch = jest.fn()
 
-// localStorage.getItem
+// localStorage.getItem mock
 Storage.prototype.getItem = jest.fn()
 
-// localStorage.setItem
+// localStorage.setItem mock
 Storage.prototype.setItem = jest.fn()
 
 ```
