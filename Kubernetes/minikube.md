@@ -33,6 +33,12 @@ minikube stop
 minikube addons list
 ```
 
+## Dashboard addon
+
+### Create and run dashboard 
+```shell
+minikube dashboard
+```
 
 ## Network and connection
 
