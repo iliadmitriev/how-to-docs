@@ -1,16 +1,21 @@
 # kubectl
 
-* [Namespaces](#namespaces)
-* [Workloads](#workloads)
-    + [Deployments](#deployments)
-        - [Get all deployments](#get-all-deployments)
-        - [Create a new deployment](#create-a-new-deployment)
-        - [Edit deployment](#edit-deployment)
-        - [Delete deployment](#delete-deployment)
-    + [Pods](#pods)
-        - [Get pods](#get-pods)
-        - [Execute shell command inside a pod](#execute-shell-command-inside-a-pod)
-        - [Watch logs of a pod](#watch-logs-of-a-pod)
+- [Namespaces](#namespaces)
+- [Workloads](#workloads)
+    * [Deployments](#deployments)
+        + [Get all deployments](#get-all-deployments)
+        + [Create a new deployment](#create-a-new-deployment)
+        + [Edit deployment](#edit-deployment)
+        + [Delete deployment](#delete-deployment)
+    * [Pods](#pods)
+        + [Get pods](#get-pods)
+        + [Execute shell command inside a pod](#execute-shell-command-inside-a-pod)
+        + [Watch logs of a pod](#watch-logs-of-a-pod)
+        + [Create interactive temporary pod with shell](#create-interactive-temporary-pod-with-shell)
+- [Services](#services)
+    * [ClusterIP](#clusterip)
+    * [nodePort](#nodeport)
+    * [LoadBalancer](#loadbalancer)
 
 # Namespaces
 
@@ -91,7 +96,8 @@ kubectl apply -f nginx-deployment.yaml
 
 An alternative way to create this deployment with command line
 ```shell
-kubectl create deployment deployment-nginx --image=nginx:1.20-alpine --replicas=3
+kubectl create deployment deployment-nginx \
+     --image=nginx:1.20-alpine --replicas=3
 ```
 but in this case selector label will be created by the name of deployment `deployment-nginx`.
 
@@ -173,3 +179,24 @@ kubectl run test-pod --image=nginx:1.20-alpine --rm -it --restart=Never -- sh
 ```
 test-pod - name of temporary pod
 nginx:1.20-alpine - image
+
+
+# Services
+
+Services - short name svc
+
+## ClusterIP
+
+Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default ServiceType
+
+## nodePort
+
+Exposes the Service on each Node's IP at a static port (the NodePort). A ClusterIP Service, to which the NodePort Service routes, is automatically created. You'll be able to contact the NodePort Service, from outside the cluster, by requesting <NodeIP>:<NodePort>
+
+```shell
+kubectl expose deploy nginx-deployment --port=80 --type=NodePort
+```
+
+## LoadBalancer
+
+Exposes the Service externally using a cloud provider's load balancer. NodePort and ClusterIP Services, to which the external load balancer routes, are automatically created
