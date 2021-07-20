@@ -185,6 +185,21 @@ nginx:1.20-alpine - image
 
 Services - short name svc
 
+## Get services
+
+```shell
+# get all services in all namespaces
+kubectl get svc --all-namespaces
+# get all services in current namespace
+kubectl get svc
+# get all services in namespace test-sandbox
+kubectl get svc -n test-sandbox
+# get all services by selector app=nginx
+kubectl get svc -l app=nginx
+# get service by name
+kubectl get svc nginx-deployment
+```
+
 ## ClusterIP
 
 Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default ServiceType
