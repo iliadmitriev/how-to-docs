@@ -205,5 +205,5 @@ Exposes the Service externally using a cloud provider's load balancer. NodePort 
 kubectl expose deployment nginx-deployment --type=LoadBalancer --port=8080 --target-port=80
 ```
 
-target-port - port of container
-port - external port
+* target-port - port of container
+* port - external port
