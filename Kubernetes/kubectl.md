@@ -180,6 +180,19 @@ kubectl run test-pod --image=nginx:1.20-alpine --rm -it --restart=Never -- sh
 test-pod - name of temporary pod
 nginx:1.20-alpine - image
 
+# Scaling
+
+## Manual scaling
+
+```shell
+# scale deployment nginx-deployment to 3 replicas
+kubectl scale --replicas=3 deployment/nginx-deployment
+
+# conditionally scale deployment nginx-deployment
+# if currently we have 3 replicas than scale to 5
+kubectl scale --current-replicas=3 --replicas=5 deployment/nginx-deployment
+```
+
 
 # Services
 
