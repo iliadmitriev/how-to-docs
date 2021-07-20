@@ -12,7 +12,7 @@
         - [Execute shell command inside a pod](#execute-shell-command-inside-a-pod)
         - [Watch logs of a pod](#watch-logs-of-a-pod)
 
-## Namespaces
+# Namespaces
 
 List namespaces
 ```shell
@@ -38,7 +38,7 @@ kubectl config set-context --current --namespace=<insert-namespace-name-here>
 kubectl config view --minify | grep namespace:
 ```
 
-## Workloads
+# Workloads
 
 Kubernetes provides several built-in workload resources:
 
@@ -47,9 +47,9 @@ Kubernetes provides several built-in workload resources:
 * `DaemonSet`
 * `Job` and `CronJob`
 
-### Deployments
+## Deployments
 
-#### Get all deployments
+### Get all deployments
 ```shell
 kubectl get deployments
 kubectl get deploy
@@ -57,7 +57,7 @@ kubectl get deployments -n namespace
 kubectl get deployments --all-namespaces
 ```
 
-#### Create a new deployment
+### Create a new deployment
 
 Let's create deployment of nginx:1.20-alpine image of 3 replicas with selector `app=nginx` with port 80 inside container
 `nginx-deployment.yaml` file:
@@ -107,7 +107,7 @@ kubectl get rs -l app=nginx
 kubectl get po -l app=nginx
 ```
 
-#### Edit deployment
+### Edit deployment
 
 Edit deployment using standard editor 
 ```shell
@@ -118,15 +118,15 @@ using nano
 KUBE_EDITOR="nano" kubectl edit deploy nginx-deployment
 ```
 
-#### Delete deployment
+### Delete deployment
 
 ```shell
 kubectl delete deploy nginx-deployment
 ```
 
-### Pods
+## Pods
 
-#### Get pods
+### Get pods
 
 ```shell
 # get all pods in current namespace (long form)
@@ -146,14 +146,14 @@ Show labels of pods
 kubectl get po --show-labels
 ```
 
-#### Execute shell command inside a pod
+### Execute shell command inside a pod
 
 Interactively run shell `sh` inside `pod-name` pod
 ```shell
 kubectl exec -ti pod-name -- sh
 ```
 
-#### Watch logs of a pod
+### Watch logs of a pod
 
 watch logs of a `pod-name` pod
 ```shell
@@ -165,3 +165,11 @@ you can specify a deployment
 kubectl logs -f deployment/nginx-deployment
 ```
 then kubernetes will choose one of pods available for this deployment
+
+### Create interactive temporary pod with shell
+
+```shell
+kubectl run test-pod --image=nginx:1.20-alpine --rm -it --restart=Never -- sh
+```
+test-pod - name of temporary pod
+nginx:1.20-alpine - image
