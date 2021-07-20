@@ -1,6 +1,18 @@
 # kubectl
 
-## Namespaces (ns)
+* [Namespaces](#namespaces)
+* [Workloads](#workloads)
+    + [Deployments](#deployments)
+        - [Get all deployments](#get-all-deployments)
+        - [Create a new deployment](#create-a-new-deployment)
+        - [Edit deployment](#edit-deployment)
+        - [Delete deployment](#delete-deployment)
+    + [Pods](#pods)
+        - [Get pods](#get-pods)
+        - [Execute shell command inside a pod](#execute-shell-command-inside-a-pod)
+        - [Watch logs of a pod](#watch-logs-of-a-pod)
+
+## Namespaces
 
 List namespaces
 ```shell
@@ -35,7 +47,7 @@ Kubernetes provides several built-in workload resources:
 * `DaemonSet`
 * `Job` and `CronJob`
 
-### Deployment (deploy)
+### Deployments
 
 #### Get all deployments
 ```shell
@@ -112,7 +124,7 @@ KUBE_EDITOR="nano" kubectl edit deploy nginx-deployment
 kubectl delete deploy nginx-deployment
 ```
 
-### Pods (po)
+### Pods
 
 #### Get pods
 
