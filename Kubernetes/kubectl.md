@@ -200,3 +200,10 @@ kubectl expose deploy nginx-deployment --port=80 --type=NodePort
 ## LoadBalancer
 
 Exposes the Service externally using a cloud provider's load balancer. NodePort and ClusterIP Services, to which the external load balancer routes, are automatically created
+
+```shell
+kubectl expose deployment nginx-deployment --type=LoadBalancer --port=8080 --target-port=80
+```
+
+target-port - port of container
+port - external port
