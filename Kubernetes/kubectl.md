@@ -12,6 +12,9 @@
         + [Execute shell command inside a pod](#execute-shell-command-inside-a-pod)
         + [Watch logs of a pod](#watch-logs-of-a-pod)
         + [Create interactive temporary pod with shell](#create-interactive-temporary-pod-with-shell)
+    * [StatefulSet](#statefulset)
+        + [Create StatefulSet](#create-statefulset)
+        + [Network Identities of Stateful Set](#network-identities-of-stateful-set)
 - [Scaling](#scaling)
     * [Manual scaling](#manual-scaling)
 - [Services](#services)
@@ -20,7 +23,6 @@
     * [nodePort](#nodeport)
     * [LoadBalancer](#loadbalancer)
 - [Resources](#resources)
-
 
 # Namespaces
 
@@ -191,6 +193,146 @@ kubectl run test-pod --image=nginx:1.20-alpine --rm -it \
 ```
 * test-pod - name of temporary pod
 * nginx:1.20-alpine - image
+
+## StatefulSet
+
+StatefulSet is the workload API object used to manage stateful applications, that:
+* provide guarantees about ordering and uniqueness of pods
+* provide unique network identifiers for pods
+* have persistent storage
+* have graceful deployment and scaling
+* provide ordered, automated rolling updates
+
+Components: Service, StatefulSet, Persistent Volume, Persistent Volume Claim, Pods
+
+### Create StatefulSet
+
+Let's create a `nginx-stateful-set.yaml` file:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-nginx-svc # should match .spec.serviceName
+  labels:
+    app: web-nginx
+spec:
+  ports:
+  - port: 80
+    name: web-service
+  clusterIP: None
+  selector:
+    app: web-nginx
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web-nginx-stateful
+spec:
+  selector:
+    matchLabels:
+      app: web-nginx # should match .spec.template.metadata.labels
+  serviceName: web-nginx-svc # should match .metadata.name
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: web-nginx # should match .spec.selector.matchLabels.app
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: web-nginx-pod
+        image: nginx:1.20-alpine
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: web-pvc
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: web-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+```
+* A Headless Service, named `web-nginx-svc`, is used to control the network domain.
+* The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
+* The volumeClaimTemplates, named `web-pvc`, will provide stable storage using PersistentVolumes provisioned by a PersistentVolume Provisioner.
+
+```shell
+kubectl apply -f nginx-stateful-set.yaml
+```
+
+Watch pods created one by one
+```shell
+kubectl get po -w -l app=web-nginx
+```
+
+### Network Identities of Stateful Set
+
+Hostname consists of
+```shell
+${StatefulSet.metadata.name}-${order}.${Service.metadata.name}.${namespace}
+```
+* ${StatefulSet.metadata.name} - `web-nginx-stateful`
+* ${order} - number 0..N-1 replicas count
+* ${Service.metadata.name} - `web-nginx-svc`
+* ${namespace} - namespace stateful created in
+
+for example full:
+```shell
+web-nginx-stateful-1.web-nginx-svc.test-sandbox.svc.cluster.local
+```
+and short:
+```shell
+web-nginx-stateful-1.web-nginx-svc
+```
+
+
+Get hostname of each pod
+```shell
+for i in $(kubectl get po -o name -l app=web-nginx);
+do
+   kubectl exec "$i" -- sh -c 'hostname';
+done
+```
+Will output
+```
+web-nginx-stateful-0
+web-nginx-stateful-1
+web-nginx-stateful-2
+```
+
+Create an empty container 
+```shell
+kubectl run test-pod --image=alpine --rm -it \ 
+          --restart=Never -- sh
+```
+
+```shell
+nslookup web-nginx-svc
+
+    Server:		10.96.0.10
+    Address:	10.96.0.10:53
+    
+    Name:	web-nginx-svc.test-sandbox.svc.cluster.local
+    Address: 172.17.0.11
+    Name:	web-nginx-svc.test-sandbox.svc.cluster.local
+    Address: 172.17.0.13
+    Name:	web-nginx-svc.test-sandbox.svc.cluster.local
+    Address: 172.17.0.12
+
+nslookup 172.17.0.11
+
+  Server:		10.96.0.10
+  Address:	10.96.0.10:53
+
+  11.0.17.172.in-addr.arpa	name = web-nginx-stateful-0.web-nginx-svc.test-sandbox.svc.cluster.local
+
+```
 
 # Scaling
 

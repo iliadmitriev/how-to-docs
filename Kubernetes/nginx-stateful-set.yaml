@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-nginx-svc
+  labels:
+    app: web-nginx
+spec:
+  ports:
+  - port: 80
+    name: web-service
+  clusterIP: None
+  selector:
+    app: web-nginx
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web-nginx-stateful
+spec:
+  selector:
+    matchLabels:
+      app: web-nginx
+  serviceName: web-nginx-svc
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: web-nginx
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: web-nginx-pod
+        image: nginx:1.20-alpine
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: web-pvc
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: web-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
