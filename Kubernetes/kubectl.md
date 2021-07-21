@@ -296,14 +296,14 @@ Get hostname of each pod
 ```shell
 for i in $(kubectl get po -o name -l app=web-nginx);
 do
-   kubectl exec "$i" -- sh -c 'hostname';
+   kubectl exec "$i" -- sh -c 'hostname -f';
 done
 ```
 Will output
 ```
-web-nginx-stateful-0
-web-nginx-stateful-1
-web-nginx-stateful-2
+web-nginx-stateful-0.web-nginx-svc.test-sandbox.svc.cluster.local
+web-nginx-stateful-1.web-nginx-svc.test-sandbox.svc.cluster.local
+web-nginx-stateful-2.web-nginx-svc.test-sandbox.svc.cluster.local
 ```
 
 Create an empty container 
@@ -377,7 +377,8 @@ Exposes the Service on a cluster-internal IP. Choosing this value makes the Serv
 Exposes the Service on each Node's IP at a static port (the NodePort). A ClusterIP Service, to which the NodePort Service routes, is automatically created. You'll be able to contact the NodePort Service, from outside the cluster, by requesting <NodeIP>:<NodePort>
 
 ```shell
-kubectl expose deploy nginx-deployment --port=80 --type=NodePort
+kubectl expose deploy nginx-deployment \
+        --port=80 --type=NodePort
 ```
 
 ## LoadBalancer
@@ -385,7 +386,8 @@ kubectl expose deploy nginx-deployment --port=80 --type=NodePort
 Exposes the Service externally using a cloud provider's load balancer. NodePort and ClusterIP Services, to which the external load balancer routes, are automatically created
 
 ```shell
-kubectl expose deployment nginx-deployment --type=LoadBalancer --port=8080 --target-port=80
+kubectl expose deployment nginx-deployment \
+  --type=LoadBalancer --port=8080 --target-port=80
 ```
 
 * target-port - port of container
@@ -394,9 +396,10 @@ kubectl expose deployment nginx-deployment --type=LoadBalancer --port=8080 --tar
 
 # Resources
 
-- Medium.com
+- [Medium.com](https://medium.com)
     * [Kubernetes in three diagrams](https://tsuyoshiushio.medium.com/kubernetes-in-three-diagrams-6aba8432541c)
-- [Kubernetes.io]()
+    * [Deploying PostgreSQL as a StatefulSet in Kubernetes](https://www.bmc.com/blogs/kubernetes-postgresql/)
+- [Kubernetes.io](https://kubernetes.io/)
     * [Kubernetes concepts](https://kubernetes.io/docs/concepts/_print/)
     * [kubectl cli Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
     * [Managing resources](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
