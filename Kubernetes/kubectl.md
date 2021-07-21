@@ -12,10 +12,15 @@
         + [Execute shell command inside a pod](#execute-shell-command-inside-a-pod)
         + [Watch logs of a pod](#watch-logs-of-a-pod)
         + [Create interactive temporary pod with shell](#create-interactive-temporary-pod-with-shell)
+- [Scaling](#scaling)
+    * [Manual scaling](#manual-scaling)
 - [Services](#services)
+    * [Get services](#get-services)
     * [ClusterIP](#clusterip)
     * [nodePort](#nodeport)
     * [LoadBalancer](#loadbalancer)
+- [Resources](#resources)
+
 
 # Namespaces
 
