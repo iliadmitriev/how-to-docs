@@ -108,7 +108,7 @@ kubectl apply -f nginx-deployment.yaml
 An alternative way to create this deployment with command line
 ```shell
 kubectl create deployment deployment-nginx \
-     --image=nginx:1.20-alpine --replicas=3
+     --image=nginx:1.20-alpine --replicas=3 --port 80
 ```
 but in this case selector label will be created by the name of deployment `deployment-nginx`.
 
