@@ -235,3 +235,16 @@ kubectl expose deployment nginx-deployment --type=LoadBalancer --port=8080 --tar
 
 * target-port - port of container
 * port - external port
+
+
+# Resources
+
+- Medium.com
+    * [Kubernetes in three diagrams](https://tsuyoshiushio.medium.com/kubernetes-in-three-diagrams-6aba8432541c)
+- [Kubernetes.io]()
+    * [Kubernetes concepts](https://kubernetes.io/docs/concepts/_print/)
+    * [kubectl cli Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+    * [Managing resources](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/)
+    * [Workloads](https://kubernetes.io/docs/concepts/workloads/)
+    * [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+    * [Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
