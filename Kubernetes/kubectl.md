@@ -41,7 +41,7 @@ Delete namespace named `namespace-name`
 kubectl delete ns namespace-name
 ```
 
-Set default namespace used in context
+Set current namespace used in context
 ```shell
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # check
@@ -61,10 +61,16 @@ Kubernetes provides several built-in workload resources:
 
 ### Get all deployments
 ```shell
+# get all deployments in current namespace
 kubectl get deployments
+# get all deployments in current namespace using short reference
 kubectl get deploy
+# get all deployments in a namespace
 kubectl get deployments -n namespace
+# get all deployments in all namespaces
 kubectl get deployments --all-namespaces
+# get deployment named nginx in current namespace
+kubectl get deployment nginx
 ```
 
 ### Create a new deployment
@@ -180,10 +186,11 @@ then kubernetes will choose one of pods available for this deployment
 ### Create interactive temporary pod with shell
 
 ```shell
-kubectl run test-pod --image=nginx:1.20-alpine --rm -it --restart=Never -- sh
+kubectl run test-pod --image=nginx:1.20-alpine --rm -it \
+          --restart=Never -- sh
 ```
-test-pod - name of temporary pod
-nginx:1.20-alpine - image
+* test-pod - name of temporary pod
+* nginx:1.20-alpine - image
 
 # Scaling
 
@@ -195,13 +202,14 @@ kubectl scale --replicas=3 deployment/nginx-deployment
 
 # conditionally scale deployment nginx-deployment
 # if currently we have 3 replicas than scale to 5
-kubectl scale --current-replicas=3 --replicas=5 deployment/nginx-deployment
+kubectl scale --current-replicas=3 --replicas=5 \
+        deployment/nginx-deployment
 ```
 
 
 # Services
 
-Services - short name svc
+Service (svc) - a way to expose an application running on a set of Pods as a network service.
 
 ## Get services
 
