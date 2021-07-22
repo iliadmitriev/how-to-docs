@@ -15,6 +15,12 @@
     * [StatefulSet](#statefulset)
         + [Create StatefulSet](#create-statefulset)
         + [Network Identities of Stateful Set](#network-identities-of-stateful-set)
+- [ConfigMaps](#configmaps)
+    * [Get ConfigMap](#get-configmap)
+    * [Create ConfigMap](#create-configmap)
+    * [Edit ConfigMaps](#edit-configmaps)
+    * [Delete ConfigMaps](#delete-configmaps)
+    * [Using ConfigMaps](#using-configmaps)
 - [Scaling](#scaling)
     * [Manual scaling](#manual-scaling)
 - [Services](#services)
@@ -23,6 +29,7 @@
     * [nodePort](#nodeport)
     * [LoadBalancer](#loadbalancer)
 - [Resources](#resources)
+
 
 # Namespaces
 
