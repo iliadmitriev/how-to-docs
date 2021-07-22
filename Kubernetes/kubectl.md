@@ -480,7 +480,7 @@ Should output
 KEY1=VALUE1
 ```
 
-### Mount file from ConfigMap
+### Mount ConfigMap as a volume directory
 
 Let's create a test pod `config-test-pod.yaml`
 ```yaml
@@ -519,6 +519,40 @@ cat /volume/KEY2
   VALUE2
 ```
 
+### Mount single file from ConfigMap
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx:1.20-alpine
+      volumeMounts:
+        - name: config-volume
+          mountPath: /volume/KEY1
+          subPath: KEY1
+  volumes:
+    - name: config-volume
+      configMap:
+        name: test-config-map
+  restartPolicy: Never
+```
+```shell
+kubectl create -f config-test-pod.yaml
+```
+Check files
+```shell
+kubectl exec -it config-test-pod  -- sh
+
+ls /volume/
+  KEY1
+  
+cat /volume/KEY1
+  VALUE1
+```
 
 # Scaling
 
