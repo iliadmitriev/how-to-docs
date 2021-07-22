@@ -402,6 +402,7 @@ Edit ConfigMap named test-config-map from current namespace
 ```shell
 kubectl edit configmap test-config-map
 ```
+Current pods using this ConfigMap will not be affected
 
 ## Delete ConfigMaps
 
@@ -411,7 +412,113 @@ Delete ConfigMap named test-config-map from current namespace
 kubectl delete configmap test-config-map
 ```
 
+Current pods using this ConfigMap will not be affected
+
+
 ## Using ConfigMaps
+
+### Environment variables from ConfigMap with envFrom
+
+Let's create a test pod `config-test-pod.yaml`
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx:1.20-alpine
+      envFrom:
+      - configMapRef:
+          name: test-config-map
+  restartPolicy: Never
+```
+Run pod
+```shell
+kubectl create -f config-test-pod.yaml
+```
+Check the environment variables
+```shell
+kubectl exec -it config-test-pod  -- env | grep KEY
+```
+Should output
+```
+KEY1=VALUE1
+KEY2=VALUE2
+```
+
+### Single environment variable from ConfigMap with valueFrom
+
+Let's create a test pod `config-test-pod.yaml`
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx:1.20-alpine
+      env:
+        - name: KEY1
+          valueFrom:
+            configMapKeyRef:
+              name: test-config-map
+              key: KEY1
+  restartPolicy: Never
+```
+```shell
+kubectl create -f config-test-pod.yaml
+```
+Check the environment variable KEY
+```shell
+kubectl exec -it config-test-pod  -- env | grep KEY
+```
+Should output
+```
+KEY1=VALUE1
+```
+
+### Mount file from ConfigMap
+
+Let's create a test pod `config-test-pod.yaml`
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx:1.20-alpine
+      volumeMounts:
+        - name: config-volume
+          mountPath: /volume
+  volumes:
+    - name: config-volume
+      configMap:
+        name: test-config-map
+  restartPolicy: Never
+```
+```shell
+kubectl create -f config-test-pod.yaml
+```
+
+Check files
+```shell
+kubectl exec -it config-test-pod  -- sh
+
+ls /volume/
+  KEY1  KEY2
+  
+cat /volume/KEY1
+  VALUE1
+
+cat /volume/KEY2
+  VALUE2
+```
+
 
 # Scaling
 
