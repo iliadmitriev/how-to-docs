@@ -362,7 +362,7 @@ kubectl create cm test-config-map \
     --from-literal KEY2=VALUE2
 ```
 
-Create config map from `test.env` containing key=value pairs
+Create ConfigMap from environment file `test.env` containing key=value pairs
 ```shell
 KEY1=VALUE1
 KEY2=VALUE2
@@ -373,7 +373,7 @@ kubectl create cm test-config-map \
     --from-env-file=test.env
 ```
 
-Create ConfigMap from configuration file `test-config-map.yaml` with key=value pairs
+Create ConfigMap from defined configuration file `test-config-map.yaml`
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -395,6 +395,23 @@ All file data will be value of PUBLIC_CERT variable
 kubectl create cm test-config-map \
     --from-file PUBLIC_CERT=public-cert.pem
 ```
+
+## Edit ConfigMaps
+
+Edit ConfigMap named test-config-map from current namespace
+```shell
+kubectl edit configmap test-config-map
+```
+
+## Delete ConfigMaps
+
+Delete ConfigMap named test-config-map from current namespace
+
+```shell
+kubectl delete configmap test-config-map
+```
+
+## Using ConfigMaps
 
 # Scaling
 
