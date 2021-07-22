@@ -334,6 +334,68 @@ nslookup 172.17.0.11
 
 ```
 
+# ConfigMaps
+
+A ConfigMap is an API object used to store non-confidential data in key-value pairs.
+
+cm - is short for config maps
+
+## Get ConfigMap
+
+```shell
+# get configmaps from current namespace
+kubectl get configmap
+# get configmaps from all namespaces
+kubectl get configmap -A
+# get configmaps from test-sandbox namespaces
+kubectl get configmap -n test-sandbox
+# get configmap postgres-config contents in yaml
+kubectl get configmap postgres-config -o yaml 
+```
+
+## Create ConfigMap
+
+Create ConfigMap with command line
+```shell
+kubectl create cm test-config-map \
+    --from-literal KEY1=VALUE1 \
+    --from-literal KEY2=VALUE2
+```
+
+Create config map from `test.env` containing key=value pairs
+```shell
+KEY1=VALUE1
+KEY2=VALUE2
+KEY3=LONG VALUE WITH SPACES
+```
+```shell
+kubectl create cm test-config-map \
+    --from-env-file=test.env
+```
+
+Create ConfigMap from configuration file `test-config-map.yaml` with key=value pairs
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-config-map
+data:
+  KEY1: VALUE1
+  KEY2: VALUE2
+```
+
+Apply ConfigMap configuration 
+```shell
+kubectl apply -f test-config-map.yaml
+```
+
+Create ConfigMap from file `public-cert.pem`
+All file data will be value of PUBLIC_CERT variable
+```shell
+kubectl create cm test-config-map \
+    --from-file PUBLIC_CERT=public-cert.pem
+```
+
 # Scaling
 
 ## Manual scaling
