@@ -606,6 +606,9 @@ kubectl get svc nginx-deployment
 Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default ServiceType
 
 ```shell
+kubectl expose deploy nginx-deployment -l app=nginx \
+  --port=8080 --target-port=80
+# or
 kubectl create svc clusterip nginx --tcp=8080:80
 ```
 
@@ -615,16 +618,22 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    # should match with labels of deployment and pods
     app: nginx
   name: nginx-deployment-svc-clusterip
 spec:
   selector:
+    # should match with labels of deployment and pods
     app: nginx
   ports:
   - port: 8080
     protocol: TCP
     targetPort: 80
   type: ClusterIP
+```
+Apply
+```shell
+kubectl apply -f nginx-deployment-svc-clusterip.yaml
 ```
 
 Get IP address
