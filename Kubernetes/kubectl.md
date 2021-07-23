@@ -607,6 +607,8 @@ Exposes the Service on a cluster-internal IP. Choosing this value makes the Serv
 
 ```shell
 kubectl expose deploy nginx-deployment -l app=nginx \
+  --name=nginx-deployment-svc-clusterip \
+  --type=ClusterIP \
   --port=8080 --target-port=80
 # or
 kubectl create svc clusterip nginx --tcp=8080:80
