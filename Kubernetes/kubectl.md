@@ -21,13 +21,18 @@
     * [Edit ConfigMaps](#edit-configmaps)
     * [Delete ConfigMaps](#delete-configmaps)
     * [Using ConfigMaps](#using-configmaps)
+        + [Environment variables from ConfigMap with envFrom](#environment-variables-from-configmap-with-envfrom)
+        + [Single environment variable from ConfigMap with valueFrom](#single-environment-variable-from-configmap-with-valuefrom)
+        + [Mount ConfigMap as a volume directory](#mount-configmap-as-a-volume-directory)
+        + [Mount single file from ConfigMap](#mount-single-file-from-configmap)
 - [Scaling](#scaling)
     * [Manual scaling](#manual-scaling)
-- [Services](#services)
-    * [Get services](#get-services)
-    * [ClusterIP](#clusterip)
-    * [nodePort](#nodeport)
-    * [LoadBalancer](#loadbalancer)
+- [Network](#network)
+    * [Services](#services)
+        + [Get services](#get-services)
+        + [Create ClusterIP](#create-clusterip)
+        + [Create nodePort](#create-nodeport)
+        + [Create LoadBalancer](#create-loadbalancer)
 - [Resources](#resources)
 
 
@@ -575,12 +580,13 @@ kubectl scale --current-replicas=3 --replicas=5 \
         deployment/nginx-deployment
 ```
 
+# Network
 
-# Services
+## Services
 
 Service (svc) - a way to expose an application running on a set of Pods as a network service.
 
-## Get services
+### Get services
 
 ```shell
 # get all services in all namespaces
@@ -595,20 +601,20 @@ kubectl get svc -l app=nginx
 kubectl get svc nginx-deployment
 ```
 
-## ClusterIP
+### Create ClusterIP
 
 Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default ServiceType
 
-## nodePort
+### Create nodePort
 
-Exposes the Service on each Node's IP at a static port (the NodePort). A ClusterIP Service, to which the NodePort Service routes, is automatically created. You'll be able to contact the NodePort Service, from outside the cluster, by requesting <NodeIP>:<NodePort>
+Exposes the Service on each Node's IP at a static port (the NodePort). A ClusterIP Service, to which the NodePort Service routes, is automatically created. You'll be able to contact the NodePort Service, from outside the cluster, by requesting `<NodeIP>:<NodePort>`
 
 ```shell
 kubectl expose deploy nginx-deployment \
         --port=80 --type=NodePort
 ```
 
-## LoadBalancer
+### Create LoadBalancer
 
 Exposes the Service externally using a cloud provider's load balancer. NodePort and ClusterIP Services, to which the external load balancer routes, are automatically created
 
