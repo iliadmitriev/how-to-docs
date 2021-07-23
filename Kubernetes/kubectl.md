@@ -605,6 +605,42 @@ kubectl get svc nginx-deployment
 
 Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default ServiceType
 
+```shell
+kubectl create svc clusterip nginx --tcp=8080:80
+```
+
+Create `nginx-deployment-svc-clusterip.yaml`
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx
+  name: nginx-deployment-svc-clusterip
+spec:
+  selector:
+    app: nginx
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 80
+  type: ClusterIP
+```
+
+Get IP address
+```shell
+kubectl describe svc nginx-deployment-svc-clusterip | grep IP:
+  
+  IP:                10.108.153.142
+```
+
+Check
+```shell
+kubectl run -it --rm --image=alpine -- sh 
+apk add curl
+curl http://10.108.153.142:8080/
+```
+
 ### Create nodePort
 
 Exposes the Service on each Node's IP at a static port (the NodePort). A ClusterIP Service, to which the NodePort Service routes, is automatically created. You'll be able to contact the NodePort Service, from outside the cluster, by requesting `<NodeIP>:<NodePort>`
