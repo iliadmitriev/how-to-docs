@@ -41,3 +41,71 @@ sudo bash -c 'cat >> /etc/hosts << EOF__
 192.168.11.5 etcd5
 EOF__'
 ```
+
+## Run first node in cluster 
+
+Run first instance without data directory.
+
+Data directory should be empty.
+
+⚠️ Check `rm -rf data/etcd1`
+
+```shell
+etcd --data-dir=data/etcd1 --name=etcd1 --enable-v2=true \
+     --listen-client-urls 'http://192.168.11.1:2379' \
+     --advertise-client-urls 'http://192.168.11.1:2379' \
+     --listen-peer-urls 'http://192.168.11.1:2380' \
+     --initial-advertise-peer-urls 'http://192.168.11.1:2380' \
+     --initial-cluster-state 'new' \
+     --initial-cluster-token 'secrettoken'
+```
+
+## Add member to cluster
+
+Create new member in cluster first
+```shell
+etcdctl --endpoints=192.168.11.1:2380 member add \
+      etcd2 --peer-urls http://192.168.11.2:2380
+```
+
+It will output:
+```shell
+Member 59c7383825355e6a added to cluster f6c6734aee51507b
+
+ETCD_NAME="etcd2"
+ETCD_INITIAL_CLUSTER="etcd1=http://192.168.11.1:2380,etcd2=http://192.168.11.2:2380"
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://192.168.11.2:2380"
+ETCD_INITIAL_CLUSTER_STATE="existing"
+```
+
+Where,
+* 59c7383825355e6a - is etcd2 member id
+* ETCD_INITIAL_CLUSTER - is cluster advertise peers
+* ETCD_INITIAL_CLUSTER_STATE - cluster state (should be 'existing')
+
+Check if there is no data directory from previous run
+```shell
+rm -rf data/etcd2
+```
+
+Put ETCD_INITIAL_CLUSTER to --initial-cluster and ETCD_INITIAL_CLUSTER_STATE to --initial-cluster-state
+
+Run instance with name etcd2
+```shell
+etcd --data-dir=data/etcd2 --name=etcd2 --enable-v2=true \
+     --initial-cluster "etcd1=http://192.168.11.1:2380,etcd2=http://192.168.11.2:2380" \
+     --listen-client-urls 'http://192.168.11.2:2379' \
+     --advertise-client-urls 'http://192.168.11.2:2379' \
+     --listen-peer-urls 'http://192.168.11.2:2380' \
+     --initial-advertise-peer-urls 'http://192.168.11.2:2380' \
+     --initial-cluster-state 'existing' \
+     --initial-cluster-token 'secrettoken'
+```
+
+## Check cluster members
+
+```shell
+etcdctl --endpoints=192.168.11.1:2380 member list
+# or
+etcdctl --endpoints="192.168.11.1:2380,192.168.11.2:2380" member list 
+```
