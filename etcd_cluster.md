@@ -1,12 +1,12 @@
-# Install etcd
+# etcd cluster
 
-## Mac OS
+## Install Mac OS
 
 ```shell
 brew install etcd
 ```
 
-## Alpine Linux 
+## Install Alpine Linux 
 ```shell
 case $(uname -m) in \
   "aarch64") \
@@ -79,16 +79,16 @@ ETCD_INITIAL_CLUSTER_STATE="existing"
 ```
 
 Where,
-* 59c7383825355e6a - is etcd2 member id
-* ETCD_INITIAL_CLUSTER - is cluster advertise peers
-* ETCD_INITIAL_CLUSTER_STATE - cluster state (should be 'existing')
+* `59c7383825355e6a` - is etcd2 member id
+* `ETCD_INITIAL_CLUSTER` - is cluster advertise peers
+* `ETCD_INITIAL_CLUSTER_STATE` - cluster state (should be `existing`, or etcd will attempt to create new cluster with new ID)
 
 Check if there is no data directory from previous run
 ```shell
 rm -rf data/etcd2
 ```
 
-Put ETCD_INITIAL_CLUSTER to --initial-cluster and ETCD_INITIAL_CLUSTER_STATE to --initial-cluster-state
+Put `ETCD_INITIAL_CLUSTER` to `--initial-cluster` and `ETCD_INITIAL_CLUSTER_STATE` to `--initial-cluster-state`
 
 Run instance with name etcd2
 ```shell

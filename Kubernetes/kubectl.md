@@ -217,6 +217,8 @@ StatefulSet is the workload API object used to manage stateful applications, tha
 
 Components: Service, StatefulSet, Persistent Volume, Persistent Volume Claim, Pods
 
+`sts` - short for StatefulSet
+
 ### Create StatefulSet
 
 Let's create a `nginx-stateful-set.yaml` file:
