@@ -105,7 +105,29 @@ etcd --data-dir=data/etcd2 --name=etcd2 --enable-v2=true \
 ## Check cluster members
 
 ```shell
-etcdctl --endpoints=192.168.11.1:2380 member list
+etcdctl --endpoints=192.168.11.1:2380 member list -w table
 # or
-etcdctl --endpoints="192.168.11.1:2380,192.168.11.2:2380" member list 
+etcdctl --endpoints="192.168.11.1:2380,192.168.11.2:2380" member list -w table
+```
+
+It will output:
+```
++------------------+---------+-------+--------------------------+--------------------------+------------+
+|        ID        | STATUS  | NAME  |        PEER ADDRS        |       CLIENT ADDRS       | IS LEARNER |
++------------------+---------+-------+--------------------------+--------------------------+------------+
+| 5022e613524bd2ec | started | etcd1 | http://192.168.11.1:2380 | http://192.168.11.1:2379 |      false |
+| 59c7383825355e6a | started | etcd2 | http://192.168.11.2:2380 | http://192.168.11.2:2379 |      false |
++------------------+---------+-------+--------------------------+--------------------------+------------+
+```
+
+## Delete member from cluster
+
+1. [Get member IDs](#check-cluster-members)
+2. Run `remove` command:
+```shell
+etcdctl --endpoints=192.168.11.1:2380 member remove 59c7383825355e6a
+```
+3. Delete data directory:
+```shell
+rm -rf data/etcd2
 ```
