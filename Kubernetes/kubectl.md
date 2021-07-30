@@ -1,5 +1,6 @@
 # kubectl
 
+- [kubectl](#kubectl)
 - [Namespaces](#namespaces)
 - [Workloads](#workloads)
     * [Deployments](#deployments)
@@ -31,6 +32,8 @@
         + [Filtering condition operations](#filtering-condition-operations)
     * [Add labels to pod](#add-labels-to-pod)
     * [Remove labels from pod](#remove-labels-from-pod)
+    * [Using labels as a resource selectors](#using-labels-as-a-resource-selectors)
+        + [Matching condition types](#matching-condition-types)
 - [Scaling](#scaling)
     * [Manual scaling](#manual-scaling)
 - [Network](#network)
@@ -40,6 +43,7 @@
         + [Create nodePort](#create-nodeport)
         + [Create LoadBalancer](#create-loadbalancer)
 - [Resources](#resources)
+
 
 # Namespaces
 
