@@ -25,6 +25,12 @@
         + [Single environment variable from ConfigMap with valueFrom](#single-environment-variable-from-configmap-with-valuefrom)
         + [Mount ConfigMap as a volume directory](#mount-configmap-as-a-volume-directory)
         + [Mount single file from ConfigMap](#mount-single-file-from-configmap)
+- [Labels](#labels)
+    * [Get resource labels](#get-resource-labels)
+    * [Use labels for filtering resources](#use-labels-for-filtering-resources)
+        + [Filtering condition operations](#filtering-condition-operations)
+    * [Add labels to pod](#add-labels-to-pod)
+    * [Remove labels from pod](#remove-labels-from-pod)
 - [Scaling](#scaling)
     * [Manual scaling](#manual-scaling)
 - [Network](#network)
@@ -34,7 +40,6 @@
         + [Create nodePort](#create-nodeport)
         + [Create LoadBalancer](#create-loadbalancer)
 - [Resources](#resources)
-
 
 # Namespaces
 
@@ -567,6 +572,94 @@ ls /volume/
 cat /volume/KEY1
   VALUE1
 ```
+
+# Labels
+
+## Get resource labels
+
+User `--show-labels key` to show labels
+```shell
+kubectl get po --show-labels
+```
+Output
+```
+NAME            READY   STATUS    RESTARTS   AGE     LABELS
+pg-etcd-0       1/1     Running   1          3m53s   app=pg-etcd,controller-revision-hash=pg-etcd-78dbf7b6d5,statefulset.kubernetes.io/pod-name=pg-etcd-0
+pg-etcd-1       1/1     Running   0          3m30s   app=pg-etcd,controller-revision-hash=pg-etcd-78dbf7b6d5,statefulset.kubernetes.io/pod-name=pg-etcd-1
+pg-etcd-2       1/1     Running   3          15h     app=pg-etcd,controller-revision-hash=pg-etcd-78dbf7b6d5,statefulset.kubernetes.io/pod-name=pg-etcd-2
+pg-postgres-0   1/1     Running   2          15h     app=pg-postgres,controller-revision-hash=pg-postgres-674879f847,role=master,statefulset.kubernetes.io/pod-name=pg-postgres-0
+pg-postgres-1   1/1     Running   2          15h     app=pg-postgres,controller-revision-hash=pg-postgres-674879f847,statefulset.kubernetes.io/pod-name=pg-postgres-1
+pg-postgres-2   1/1     Running   2          15h     app=pg-postgres,controller-revision-hash=pg-postgres-674879f847,statefulset.kubernetes.io/pod-name=pg-postgres-2
+terminal-pod    1/1     Running   3          41h     run=terminal-pod
+```
+
+Get labels for other type of resources
+```shell
+# services
+kubectl get svc --show-labels
+# persistent volume claim
+kubectl get pvc --show-labels 
+```
+
+## Use labels for filtering resources
+
+Use key `-l` or `--selector` for filtering only matching labels
+```shell
+kubectl get po -l app=pg-postgres
+```
+For multiple conditions use comma separated format
+```shell
+kubectl get po -l app=pg-postgres,role=master 
+```
+### Filtering condition operations
+
+* equality =
+* inequality !=
+* inclusion (in)
+* exclusion (notin)
+
+```shell
+
+# equality label app is equal to pg-postgres
+# and label role is equal to master
+kubectl get po -l role=master 
+
+# inequality
+kubectl get po -l role!=slave
+ 
+# inclusion (user single quotes)
+# get all resources which
+# key app includes values both pg-postgres or pg-etcd
+kubectl get po -l 'app in (pg-postgres,pg-etcd)'
+
+# exclusion
+# get all resources which 
+# key env value is not equal to both dev or test 
+kubectl get po -l 'env notin (dev, test)'
+
+# multiple conditions
+kubectl get po -l 'app in (pg-postgres,pg-etcd),role!=slave,env notin (dev, test)'
+```
+
+## Add labels to pod
+
+Put label `role` equals `master` to pod `pg-postgres-2`
+```shell
+kubectl label po pg-postgres-2 role=master
+```
+Pod `pg-postgres-2` should not have this label before, or you will get error
+```
+error: 'role' already has a value (master), and --overwrite is false
+```
+Which means to overwrite value of label `role` use `--overwrite` key
+
+## Remove labels from pod
+
+Remove label `unhealhy` from `pg-postgres-0` pod (use minus sing)
+```shell
+kubectl label po pg-postgres-0 unhealhy-
+```
+
 
 # Scaling
 
