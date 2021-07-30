@@ -660,6 +660,40 @@ Remove label `unhealhy` from `pg-postgres-0` pod (use minus sing)
 kubectl label po pg-postgres-0 unhealhy-
 ```
 
+## Using labels as a resource selectors
+
+Labels is used as a selectors for resources types:
+* Service
+* Deployment
+* StatefulSet
+* ReplicationController
+* Job 
+* ReplicaSet
+* DaemonSet
+
+### Matching condition types
+
+`matchLabels` conditions is used for selectors as key=values pair with AND operation
+```yaml
+selector:
+  matchLabels:
+    app: pg-postgres
+    healthy: true
+    role: master
+```
+
+`matchExpressions` is usr for selectors with operations `In`, `NotIn`, `Exists` and `DoesNotExist`
+````yaml
+selector:
+  matchLabels:
+    app: pg-postgres
+    healthy: true
+    role: master
+  matchExpressions:
+    - {key: env, operator: In, values: [production]}
+    - {key: env, operator: NotIn, values: [dev,test]}
+````
+
 
 # Scaling
 
