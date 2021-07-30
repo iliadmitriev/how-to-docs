@@ -698,6 +698,117 @@ selector:
     - {key: env, operator: NotIn, values: [dev,test]}
 ````
 
+# Service Accounts
+
+Service Account (sa) - is a special type of account intended to represent a non-human user that needs to authenticate and be authorized to access kubernetes APIs.
+
+## Managing ServiceAccounts
+
+### Get Service Accounts
+```shell
+kubectl get sa
+```
+
+### Create Service Accounts 
+
+Create a service account named `terminal-sa`
+```shell
+kubectl create sa terminal-sa
+```
+
+## Service Account Usage
+
+Create a Service account from previous example
+
+Create pod which uses service account.
+`spec.serviceAccountName` and `spec.automountServiceAccountToken`
+```shell
+apiVersion: v1
+kind: Pod
+metadata:
+  name: terminal-pod
+spec:
+  serviceAccountName: terminal-sa
+  automountServiceAccountToken: true
+  containers:
+  - image: nginx:alpine
+    imagePullPolicy: IfNotPresent
+    name: terminal-pod
+```
+
+Service accounts secrets will be mounted in `ls -la /var/run/secrets/kubernetes.io/serviceaccount/`
+
+```shell
+kubectl exec -ti terminal-pod -- sh
+
+# list contents of 
+
+ls -la /var/run/secrets/kubernetes.io/serviceaccount/
+
+total 4
+drwxrwxrwt    3 root     root           140 Jul 30 16:43 .
+drwxr-xr-x    3 root     root          4096 Jul 30 16:43 ..
+drwxr-xr-x    2 root     root           100 Jul 30 16:43 ..2021_07_30_16_43_14.670754610
+lrwxrwxrwx    1 root     root            31 Jul 30 16:43 ..data -> ..2021_07_30_16_43_14.670754610
+lrwxrwxrwx    1 root     root            13 Jul 30 16:43 ca.crt -> ..data/ca.crt
+lrwxrwxrwx    1 root     root            16 Jul 30 16:43 namespace -> ..data/namespace
+lrwxrwxrwx    1 root     root            12 Jul 30 16:43 token -> ..data/token
+
+```
+
+* `ca.crt` - CA certificates bundle
+* `namespace` - namespace name
+* `token` - api auth token 
+
+#### Role and RoleBinding
+
+An RBAC Role contains rules that represent a set of permissions. Permissions are purely additive (there are no "deny" rules).
+
+A Role always sets permissions within a particular namespace; when you create a Role, you have to specify the namespace it belongs in.
+
+Creating a role which forbids everything except get pod named `terminal-pod`
+```shell
+kubectl create role terminal-role \
+  --verb=get --resource=pods \
+  --resource-name=terminal-pod
+```
+or
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: terminal-role
+rules:
+- apiGroups: [""]
+  resourceNames: ["terminal-pod"]
+  resources: ["pods"]
+  verbs: ["get"]
+```
+
+Where verb is a permissions set:
+* get - read a resource
+* list - resources
+* watch - watch resources
+* patch - could be patched runtime
+* update - could be updated
+* create - could be created new resources of the type
+* list - can get a list of resources
+* delete - can delete resource of that type
+
+Bind this Role to Service Account creating RoleBinding
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: terminal-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: terminal-role
+subjects:
+- kind: ServiceAccount
+  name: terminal-sa
+```
 
 # Scaling
 
