@@ -810,6 +810,38 @@ subjects:
   name: terminal-sa
 ```
 
+## Kubernetes APIs
+
+API default path:
+```
+https://kubernetes.default.svc.cluster.local
+```
+or get API IP from environment variables
+```dotenv
+export KUBERNETES_PORT='tcp://10.96.0.1:443'
+export KUBERNETES_PORT_443_TCP='tcp://10.96.0.1:443'
+export KUBERNETES_PORT_443_TCP_ADDR='10.96.0.1'
+export KUBERNETES_PORT_443_TCP_PORT='443'
+export KUBERNETES_PORT_443_TCP_PROTO='tcp'
+export KUBERNETES_SERVICE_HOST='10.96.0.1'
+export KUBERNETES_SERVICE_PORT='443'
+export KUBERNETES_SERVICE_PORT_HTTPS='443'
+```
+
+Export CA certificate bundle, token and namespace
+```shell
+export NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+export CA_BUNDLE=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+export TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+```
+
+Get pod information
+```shell
+curl --cacert ${CA_BUNDLE} \
+  -H "Authorization: Bearer ${TOKEN}" \
+  https://kubernetes.default.svc.cluster.local/api/v1/namespaces/${NAMESPACE}/pods/terminal-pod
+```
+
 # Scaling
 
 ## Manual scaling
