@@ -812,6 +812,8 @@ subjects:
 
 ## Kubernetes APIs
 
+Execute shell in [terminal-pod created earlier](#service-account-usage)
+
 API default path:
 ```
 https://kubernetes.default.svc.cluster.local
@@ -840,6 +842,51 @@ Get pod information
 curl --cacert ${CA_BUNDLE} \
   -H "Authorization: Bearer ${TOKEN}" \
   https://kubernetes.default.svc.cluster.local/api/v1/namespaces/${NAMESPACE}/pods/terminal-pod
+```
+
+### Patch resource using API
+
+Let's update our Role created in [previous example](#role-and-rolebinding)
+And add permission to `patch` resource named `terminal-pod`
+
+```shell
+kubectl edit roles terminal-role
+```
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: terminal-role
+  namespace: test-sandbox
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - terminal-pod
+  resources:
+  - pods
+  verbs:
+  - get
+  - patch
+```
+Add patch verb to the list
+
+Get back to our pod `terminal-pod` terminal sh
+And add labels `main` with value `yes` to our pod using API from inside the container
+```shell
+curl --cacert ${CA_BUNDLE} \
+  -H "Authorization: Bearer ${TOKEN}" \
+  https://kubernetes.default.svc.cluster.local/api/v1/namespaces/${NAMESPACE}/pods/terminal-pod \
+   -XPATCH -H 'Content-type: application/merge-patch+json' \
+   -d '{"metadata":{"labels":{"main":"yes"}}}'
+```
+
+Lets check labels 
+```shell
+kubectl get po terminal-pod --show-labels
+
+NAME           READY   STATUS    RESTARTS   AGE   LABELS
+terminal-pod   1/1     Running   0          51m   main=yes
 ```
 
 # Scaling
