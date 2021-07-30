@@ -742,7 +742,9 @@ spec:
     name: terminal-pod
 ```
 
-Service accounts secrets will be mounted in `ls -la /var/run/secrets/kubernetes.io/serviceaccount/`
+Service accounts secrets will be mounted to pod container in directory
+
+`/var/run/secrets/kubernetes.io/serviceaccount/`
 
 ```shell
 kubectl exec -ti terminal-pod -- sh
