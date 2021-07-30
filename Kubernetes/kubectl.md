@@ -1,6 +1,5 @@
 # kubectl
 
-- [kubectl](#kubectl)
 - [Namespaces](#namespaces)
 - [Workloads](#workloads)
     * [Deployments](#deployments)
@@ -34,6 +33,14 @@
     * [Remove labels from pod](#remove-labels-from-pod)
     * [Using labels as a resource selectors](#using-labels-as-a-resource-selectors)
         + [Matching condition types](#matching-condition-types)
+- [Service Accounts](#service-accounts)
+    * [Managing ServiceAccounts](#managing-serviceaccounts)
+        + [Get Service Accounts](#get-service-accounts)
+        + [Create Service Accounts](#create-service-accounts)
+    * [Service Account Usage](#service-account-usage)
+        - [Role and RoleBinding](#role-and-rolebinding)
+    * [Kubernetes APIs](#kubernetes-apis)
+        + [Patch resource using API](#patch-resource-using-api)
 - [Scaling](#scaling)
     * [Manual scaling](#manual-scaling)
 - [Network](#network)
@@ -43,7 +50,6 @@
         + [Create nodePort](#create-nodeport)
         + [Create LoadBalancer](#create-loadbalancer)
 - [Resources](#resources)
-
 
 # Namespaces
 
