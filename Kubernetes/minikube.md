@@ -68,3 +68,9 @@ Connect
 ```shell
 minikube tunnel -n default
 ```
+
+## Add nodes to minikube cluster
+
+```shell
+minikube node add
+```
