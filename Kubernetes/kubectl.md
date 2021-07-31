@@ -15,6 +15,7 @@
     * [StatefulSet](#statefulset)
         + [Create StatefulSet](#create-statefulset)
         + [Network Identities of Stateful Set](#network-identities-of-stateful-set)
+        + [Examples of Stateful Set](#examples-of-stateful-set)
 - [ConfigMaps](#configmaps)
     * [Get ConfigMap](#get-configmap)
     * [Create ConfigMap](#create-configmap)
@@ -362,6 +363,11 @@ nslookup 172.17.0.11
   11.0.17.172.in-addr.arpa	name = web-nginx-stateful-0.web-nginx-svc.test-sandbox.svc.cluster.local
 
 ```
+
+### Examples of Stateful Set
+ 
+1. [etcd cluster](https://github.com/iliadmitriev/etcd-cluster)
+2. [postgresql](https://github.com/iliadmitriev/postgres-cluster)
 
 # ConfigMaps
 
