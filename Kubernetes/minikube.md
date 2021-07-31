@@ -78,3 +78,20 @@ Before adding be aware of:
 ```shell
 minikube node add
 ```
+
+# Cleanup
+
+```shell
+# Stop cluster nodes
+minikube stop
+
+# Delete nodes containers 
+docker rm minikube
+docker rm minikube-m02 # ...
+
+# Delete networks
+docker network prune
+
+# Delete volumes
+docker volume prune
+```
