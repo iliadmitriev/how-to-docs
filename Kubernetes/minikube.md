@@ -3,6 +3,33 @@
 Get the latest release for your operating system
 https://github.com/kubernetes/minikube/releases
 
+# Configuration
+
+## Get list of keys
+
+```shell
+minikube config
+```
+
+## View current config keys and values
+
+```shell
+minikube config view
+```
+
+## Get config key value
+
+```shell
+minikube config get driver
+```
+
+
+## Set config key a new value
+
+```shell
+minikube config set driver docker
+```
+
 # Usage
 
 ## Create cluster / start cluster
