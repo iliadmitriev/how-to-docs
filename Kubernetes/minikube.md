@@ -121,4 +121,7 @@ docker network prune
 
 # Delete volumes
 docker volume prune
+
+# Delete local config and keys
+rm -rf ~/.minikube/
 ```
