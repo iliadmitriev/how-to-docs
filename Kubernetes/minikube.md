@@ -71,6 +71,10 @@ minikube tunnel -n default
 
 ## Add nodes to minikube cluster
 
+Before adding be aware of:
+* https://github.com/kubernetes/minikube/issues/8055
+* https://github.com/kubernetes/minikube/issues/10382
+
 ```shell
 minikube node add
 ```
