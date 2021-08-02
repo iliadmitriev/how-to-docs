@@ -903,6 +903,47 @@ NAME           READY   STATUS    RESTARTS   AGE   LABELS
 terminal-pod   1/1     Running   0          51m   main=yes
 ```
 
+# Nodes
+
+Get node list
+```shell
+kubectl get nodes
+kubectl get nodes -o wide
+```
+
+Get node info and statistics
+```shell
+kubectl describe nodes minikube
+```
+
+## Cordon and uncordon node
+
+Cordon - mark node as unschedulable. New pods will not be assigned to this node.
+```shell
+kubectl cordon minikube
+```
+Check if node is unschedulable
+```shell
+kubectl describe nodes minikube
+```
+Output
+```
+....
+Unschedulable:      true
+...
+```
+
+Make node schedulable again
+```shell
+kubectl uncordon minikube
+```
+
+## Safely Drain a Node
+
+```shell
+kubectl drain <node name>
+```
+
 # Scaling
 
 ## Manual scaling
