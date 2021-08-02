@@ -947,9 +947,98 @@ kubectl uncordon minikube
 kubectl drain <node name>
 ```
 
-# Scaling
+# Deploying
 
-## Manual scaling
+## Rollout
+
+Rollout can be applied to:
+* [deployments](#deployments)
+* [stateful sets](#statefulset)
+* daemon stets
+
+Get status of current deployment
+```shell
+kubectl rollout status statefulset web-nginx-stateful
+```
+```
+partitioned roll out complete: 1 new pods have been updated...
+```
+
+Get history of previous 3 deployments
+```shell
+kubectl rollout history statefulset web-nginx-stateful
+```
+```
+statefulset.apps/web-nginx-stateful 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+```
+
+### Rollout restart
+
+```shell
+kubectl rollout restart statefulset web-nginx-stateful 
+```
+
+### Partial deployment
+
+1) Set partition size to 3
+```shell
+kubectl patch statefulset web-nginx-stateful \
+  -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
+```
+
+2) Patch pod template with a new image of nginx
+```shell
+kubectl patch statefulset web-nginx-stateful \
+  --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"nginx:1.21-alpine"}]'
+```
+
+Let's check that rolling update does not start
+```shell
+kubectl rollout status statefulset web-nginx-stateful
+# partitioned roll out complete: 0 new pods have been updated...
+```
+
+```shell
+kubectl get pods -l app=web-nginx \
+  -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
+  
+# web-nginx-stateful-0:	nginx:1.20-alpine, 
+# web-nginx-stateful-1:	nginx:1.20-alpine, 
+# web-nginx-stateful-2:	nginx:1.20-alpine,
+```
+
+3) Set partition size to 2
+```shell
+kubectl patch statefulset web-nginx-stateful \
+ -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
+```
+Let's check that rolling update goes only on one last pod
+```shell
+kubectl rollout status statefulset web-nginx-stateful
+# partitioned roll out complete: 1 new pods have been updated...
+```
+Check updated pod
+```shell
+kubectl get pods -l app=web-nginx \
+  -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
+
+# web-nginx-stateful-0:	nginx:1.20-alpine, 
+#  web-nginx-stateful-1:	nginx:1.20-alpine, 
+# web-nginx-stateful-2:	nginx:1.21-alpine, %                                                                                                                                                        
+```
+
+### Rollback to previous revision
+
+```shell
+kubectl rollout undo statefulset web-nginx-stateful --to-revision 2
+```
+
+## Scaling
+
+### Manual scaling
 
 ```shell
 # scale deployment nginx-deployment to 3 replicas
