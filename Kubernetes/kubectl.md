@@ -988,9 +988,13 @@ kubectl rollout restart statefulset web-nginx-stateful
 
 ### Partial deployment
 
-Partition size
+Partition size designates an ordinal greater than or equal to that will be updated.
+
+In other words if you have 3 pods numbered from 0 to 2, and partition is set to 3, this means no pods will be updated.
+To update all pods you have to set partition to 0.
 ```shell
-kubectl get statefulsets.apps web-nginx-stateful -o json
+kubectl get statefulsets.apps web-nginx-stateful \
+  -o json | jq '.spec.updateStrategy'
 ```
 ```json
 {
