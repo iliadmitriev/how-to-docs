@@ -1026,15 +1026,52 @@ kubectl get pods -l app=web-nginx \
   -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
 
 # web-nginx-stateful-0:	nginx:1.20-alpine, 
-#  web-nginx-stateful-1:	nginx:1.20-alpine, 
-# web-nginx-stateful-2:	nginx:1.21-alpine, %                                                                                                                                                        
+# web-nginx-stateful-1:	nginx:1.20-alpine, 
+# web-nginx-stateful-2:	nginx:1.21-alpine,                                                                                                                                                       
+```
+
+4) Set partition size to 0 (finish deploy operation)
+```shell
+kubectl patch statefulset web-nginx-stateful \
+  -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
+```
+Check rollout status
+```shell
+kubectl rollout status statefulset web-nginx-stateful
+# Waiting for 1 pods to be ready...
+# Waiting for 1 pods to be ready...
+# partitioned roll out complete: 3 new pods have been updated...
+```
+Check container images:
+```shell
+kubectl get pods -l app=web-nginx \
+  -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
+
+# web-nginx-stateful-0:	nginx:1.21-alpine, 
+# web-nginx-stateful-1:	nginx:1.21-alpine, 
+# web-nginx-stateful-2:	nginx:1.21-alpine,
 ```
 
 ### Rollback to previous revision
 
+Get history of deployments revision
+```shell
+kubectl rollout history statefulset web-nginx-stateful
+```
+```
+statefulset.apps/web-nginx-stateful 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+3         <none>
+```
+
+Rollback to revision 2
 ```shell
 kubectl rollout undo statefulset web-nginx-stateful --to-revision 2
 ```
+
+Rollback operation creates another rollout in revision history
 
 ## Scaling
 
