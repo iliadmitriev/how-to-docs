@@ -1,3 +1,24 @@
+# Contents
+
+- [Install minikube](#install-minikube)
+- [Configuration](#configuration)
+  * [Get list of keys](#get-list-of-keys)
+  * [View current config keys and values](#view-current-config-keys-and-values)
+  * [Get config key value](#get-config-key-value)
+  * [Set config key a new value](#set-config-key-a-new-value)
+- [Usage](#usage)
+  * [Create cluster and start](#create-cluster-and-start)
+  * [Addons](#addons)
+    + [List available addons](#list-available-addons)
+    + [Install addon](#install-addon)
+  * [Dashboard addon](#dashboard-addon)
+    + [Create and run dashboard](#create-and-run-dashboard)
+  * [Network and connection](#network-and-connection)
+    + [Connect via service](#connect-via-service)
+    + [Connect using tunnel](#connect-using-tunnel)
+  * [Add nodes to minikube cluster](#add-nodes-to-minikube-cluster)
+- [Cleanup](#cleanup)
+
 # Install minikube
 
 Get the latest release for your operating system
@@ -32,7 +53,7 @@ minikube config set driver docker
 
 # Usage
 
-## Create cluster / start cluster
+## Create cluster and start
 
 To create and start earlier created cluster
 Run
@@ -58,6 +79,12 @@ minikube stop
 
 ```shell
 minikube addons list
+```
+
+### Install addon
+
+```shell
+minikube addons enable metrics-server
 ```
 
 ## Dashboard addon
