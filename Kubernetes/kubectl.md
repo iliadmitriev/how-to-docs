@@ -988,6 +988,31 @@ kubectl rollout restart statefulset web-nginx-stateful
 
 ### Partial deployment
 
+Partition size
+```shell
+kubectl get statefulsets.apps web-nginx-stateful -o json
+```
+```json
+{
+  "spec": {
+    "updateStrategy": {
+      "type": "RollingUpdate",
+      "rollingUpdate": {
+        "partition": 3
+      }
+    }
+  }
+}
+```
+
+```shell
+kubectl describe statefulsets.apps web-nginx-stateful
+```
+```
+Update Strategy:    RollingUpdate
+  Partition:        0
+```
+
 1) Set partition size to 3
 ```shell
 kubectl patch statefulset web-nginx-stateful \
