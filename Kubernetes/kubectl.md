@@ -1266,7 +1266,38 @@ web-sqrt-9949c44f7-p259n   1/1     Running   0          8m20s   10.244.1.2   min
 web-sqrt-9949c44f7-zss2v   1/1     Running   0          2m15s   10.244.2.5   minikube-m03   <none>           <none>
 ```
 
+Cancel `ab` requests. After a while horizontal pod autoscaler will scale down and all extra pods will be stopped and deleted
 
+```
+Name:                                                  web-sqrt
+Namespace:                                             default
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Mon, 02 Aug 2021 21:13:57 +0300
+Reference:                                             Deployment/web-sqrt
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  0% (1m) / 50%
+Min replicas:                                          2
+Max replicas:                                          10
+Deployment pods:                                       2 current / 2 desired
+Conditions:
+  Type            Status  Reason            Message
+  ----            ------  ------            -------
+  AbleToScale     True    ReadyForNewScale  recommended size matches current size
+  ScalingActive   True    ValidMetricFound  the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  True    TooFewReplicas    the desired replica count is less than the minimum replica count
+Events:
+  Type     Reason                        Age                  From                       Message
+  ----     ------                        ----                 ----                       -------
+  Normal   SuccessfulRescale             18m                  horizontal-pod-autoscaler  New size: 8; reason: cpu resource utilization (percentage of request) above target
+  Warning  FailedGetResourceMetric       10m (x3 over 10m)    horizontal-pod-autoscaler  failed to get cpu utilization: did not receive metrics for any ready pods
+  Warning  FailedComputeMetricsReplicas  10m (x3 over 10m)    horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu utilization: did not receive metrics for any ready pods
+  Normal   SuccessfulRescale             9m54s (x2 over 19m)  horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             9m39s                horizontal-pod-autoscaler  New size: 5; reason:
+  Normal   SuccessfulRescale             8m53s                horizontal-pod-autoscaler  New size: 7; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             2m53s                horizontal-pod-autoscaler  New size: 4; reason: All metrics below target
+  Normal   SuccessfulRescale             2m38s (x2 over 12m)  horizontal-pod-autoscaler  New size: 2; reason: All metrics below target
+```
 # Network
 
 ## Services
