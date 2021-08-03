@@ -447,6 +447,17 @@ kubectl edit svc web-nginx
 
 ## Patch
 
+Update field(s) of a resource using strategic merge patch, a JSON merge patch, or a JSON patch.
+
+```shell
+# patch pod named terminal, set new image alpine to containers named "terminal"
+kubectl patch pod terminal \
+  -p '{"spec":{"containers":[{"name":"terminal","image":"alpine"}]}}'
+# patch pod named terminal, using json patch
+kubectl patch pod terminal --type='json' \
+ -p='[{"op": "replace", "path": "/spec/containers/0/image", "value":"alpine"}]'
+
+```
 
 # ConfigMaps
 
