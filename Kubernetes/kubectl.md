@@ -1139,9 +1139,9 @@ kubectl top nodes
 kubectl top pod <podName>
 ```
 
-Let's create a pod requiring CPU resources
-Performing vast amount of calculations
-As an example we used [python script](https://github.com/iliadmitriev/hw/blob/master/workload.py) which calculates a sum of square root between 1 and 1.000.000
+Let's create a pod requiring CPU resources, performing vast amount of calculations.
+
+As an example we can use [python script](https://github.com/iliadmitriev/hw/blob/master/workload.py) which calculates a sum of square root between 1 and 1.000.000
 
 ```yaml
 apiVersion: v1
