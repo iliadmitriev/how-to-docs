@@ -1176,6 +1176,8 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        # it's mandatory to specify
+        # resources limits
         resources:
           limits:
             cpu: 500m
@@ -1195,6 +1197,75 @@ Memory
 * 128Mi - 128 megabytes
 
 #### Horizontal pod autoscaler
+
+Create autoscaler for deployment `web-sqrt`
+```shell
+kubectl autoscale deployment web-sqrt \
+  --max 10 --min 2 --cpu-percent=50
+```
+
+Get autoscaler state
+```shell
+kubectl describe hpa web-sqrt
+```
+Output
+```
+Name:                                                  web-sqrt
+Namespace:                                             default
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Mon, 02 Aug 2021 22:03:25 +0300
+Reference:                                             Deployment/web-sqrt
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  0% (1m) / 50%
+Min replicas:                                          2
+Max replicas:                                          10
+Deployment pods:                                       2 current / 2 desired
+Conditions:
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
+Events:           <none>
+```
+Get current workloads 
+```shell
+kubectl get pod -l app=sqrt -o wide -w
+```
+Output
+```
+NAME                       READY   STATUS    RESTARTS   AGE     IP           NODE           NOMINATED NODE   READINESS GATES
+web-sqrt-9949c44f7-nhdfv   1/1     Running   0          2m36s   10.244.2.2   minikube-m03   <none>           <none>
+web-sqrt-9949c44f7-p259n   1/1     Running   0          2m36s   10.244.1.2   minikube-m02   <none>           <none>
+```
+
+Simulate huge load
+```shell
+# create a new empty container
+kubectl run terminal -ti --image=alpine --command -- sh
+
+# install apache benchmark
+apk add apache2-utils
+
+# make 10.000 requests in 40 threads to service
+ab -c 40 -n 10000 http://web-sqrt-svc:8080/
+```
+New pods are created
+```
+NAME                       READY   STATUS    RESTARTS   AGE     IP           NODE           NOMINATED NODE   READINESS GATES
+web-sqrt-9949c44f7-26ngb   1/1     Running   0          2m15s   10.244.1.6   minikube-m02   <none>           <none>
+web-sqrt-9949c44f7-96lbc   1/1     Running   0          2m15s   10.244.2.6   minikube-m03   <none>           <none>
+web-sqrt-9949c44f7-cklmf   1/1     Running   0          2m30s   10.244.2.4   minikube-m03   <none>           <none>
+web-sqrt-9949c44f7-g7m7t   1/1     Running   0          2m30s   10.244.1.4   minikube-m02   <none>           <none>
+web-sqrt-9949c44f7-gvchr   1/1     Running   0          2m      10.244.2.7   minikube-m03   <none>           <none>
+web-sqrt-9949c44f7-j4jbp   1/1     Running   0          2m15s   10.244.1.5   minikube-m02   <none>           <none>
+web-sqrt-9949c44f7-nhdfv   1/1     Running   0          8m20s   10.244.2.2   minikube-m03   <none>           <none>
+web-sqrt-9949c44f7-nx7nf   1/1     Running   0          2m      10.244.0.3   minikube       <none>           <none>
+web-sqrt-9949c44f7-p259n   1/1     Running   0          8m20s   10.244.1.2   minikube-m02   <none>           <none>
+web-sqrt-9949c44f7-zss2v   1/1     Running   0          2m15s   10.244.2.5   minikube-m03   <none>           <none>
+```
+
 
 # Network
 
