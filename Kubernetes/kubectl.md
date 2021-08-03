@@ -380,6 +380,67 @@ nslookup 172.17.0.11
 1. [etcd cluster](https://github.com/iliadmitriev/etcd-cluster)
 2. [postgresql](https://github.com/iliadmitriev/postgres-cluster)
 
+# Control commands
+
+## Apply
+
+Applies configuration to resources or create new resources.
+
+from file
+```shell
+kubectl apply -f nginx-deployment.yaml
+# or 
+cat nginx-deployment.yaml | kubectl apply -f-
+```
+or from stdin
+
+```shell
+kubectl apply -f - << EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.20-alpine
+        ports:
+        - containerPort: 80
+EOF
+```
+
+## Delete
+
+Delete resources
+
+```shell
+# delete resources specified in yaml file
+kubectl delete -f nginx-deployment.yaml
+# delete pod 
+kubectl delete po nginx-web-1
+# delete deployment with all it's pods
+kubectl delete deployment nginx-web
+# delete pods and services by label selector
+kubectl delete pods,services -l name=nginx
+```
+
+## Edit
+
+## Patch
+
+## Replace
+
 # ConfigMaps
 
 A ConfigMap is an API object used to store non-confidential data in key-value pairs.
