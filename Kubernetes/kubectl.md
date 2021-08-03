@@ -1138,7 +1138,7 @@ kubectl top pod <podName>
 
 Let's create a pod requiring CPU resources
 Performing vast amount of calculations
-As an example we used python script which calculates a sum of square root between 1 and 1.000.000
+As an example we used [python script](https://github.com/iliadmitriev/hw/blob/master/workload.py) which calculates a sum of square root between 1 and 1.000.000
 
 ```yaml
 apiVersion: v1
@@ -1184,6 +1184,15 @@ spec:
 ```
 
 #### Units
+
+CPU
+* 1 - means vCPU unit
+* 500m (milli cpu) - 0,5 of vCPU unit
+
+Memory
+* suffixes: E, P, T, G, M, k
+* suffixes: Ei, Pi, Ti, Gi, Mi, Ki
+* 128Mi - 128 megabytes
 
 #### Horizontal pod autoscaler
 
