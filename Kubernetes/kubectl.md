@@ -437,9 +437,16 @@ kubectl delete pods,services -l name=nginx
 
 ## Edit
 
+Edit a resource by the default editor.
+Editor can be changed via `KUBE_EDITOR` environment variable.
+
+```shell
+# edit service web-nginx
+kubectl edit svc web-nginx
+```
+
 ## Patch
 
-## Replace
 
 # ConfigMaps
 
