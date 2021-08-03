@@ -1121,6 +1121,72 @@ kubectl scale --current-replicas=3 --replicas=5 \
         deployment/nginx-deployment
 ```
 
+### Autoscale
+
+Before you begin
+
+[Metrics server](https://github.com/kubernetes-sigs/metrics-server) monitoring needs to be deployed in the cluster to provide metrics through the Metrics API. Addon [metrics-server](minikube.md#add-nodes-to-minikube-cluster) should be enabled for [minikube](minikube.md) setup
+
+Check if metrics server properly works
+```shell
+# check metrics from nodes
+kubectl top nodes
+
+# check metrics from pods
+kubectl top pod <podName>
+```
+
+Let's create a pod requiring CPU resources
+Performing vast amount of calculations
+As an example we used python script which calculates a sum of square root between 1 and 1.000.000
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-sqrt-svc
+  labels:
+    app: sqrt
+spec:
+  selector:
+    app: sqrt
+  ports:
+  - port: 8080
+    name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-sqrt
+  labels:
+    app: sqrt
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sqrt
+  template:
+    metadata:
+      labels:
+        app: sqrt
+    spec:
+      containers:
+      - name: sqrt-pod
+        image: iliadmitriev/workload:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 250m
+```
+
+#### Units
+
+#### Horizontal pod autoscaler
+
 # Network
 
 ## Services
