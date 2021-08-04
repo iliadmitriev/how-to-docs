@@ -819,7 +819,7 @@ metadata:
 spec:
   containers:
   - name: mypod
-    image: nginx:alpine
+    image: nginx:alpine          
     volumeMounts:
     - name: foo
       mountPath: "/mypasswords"
@@ -850,6 +850,56 @@ ls -l /mypasswords/..data/mykey1
 ```
 
 When a secret currently consumed in a volume is updated, projected keys are eventually updated as well. The kubelet checks whether the mounted secret is fresh on every periodic sync (it takes a while)
+
+### Using Secrets as environment variables
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: nginx:alpine
+    envFrom:
+      - secretRef:
+          name: mypasswords
+```
+Check
+```shell
+kubectl exec -ti mypod -- sh
+
+export | grep key
+# export key1='supersecret'
+# export key2='topsecret'
+```
+
+### Environment variables from a Secret's specific key 
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: nginx:alpine
+    env:
+      - name: ADMIN_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mypasswords
+            key: key1
+```
+Check
+```shell
+kubectl exec -ti mypod -- sh
+
+export | grep ADMIN
+# export ADMIN_PASSWORD='supersecret'
+```
 
 # Labels
 
