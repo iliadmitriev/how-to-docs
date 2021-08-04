@@ -685,6 +685,90 @@ cat /volume/KEY1
   VALUE1
 ```
 
+# Secrets
+
+A Secret is a namespaced resource that contains a small amount of secretive data such as a password, a token, or a key, which you don't want to include in your application code.
+
+A secret can be used with pods in three ways:
+* As file(s) with volume mounted to pod
+* As container environment variable(s)
+
+## Types of Secret
+
+* Opaque (generic, default) - arbitrary user-defined data
+* docker-registry (kubernetes.io/dockerconfigjson) serialized ~/.docker/config.json file
+* tls (kubernetes.io/tls) - data for a TLS client or server, x509 certificate and a private key
+* service account token (kubernetes.io/service-account-token) service account token data to authorize at kubernetes api
+* kubernetes.io/basic-auth - credentials for basic authentication (http)
+* kubernetes.io/ssh-auth - credentials for ssh authentication (ssh, git)
+
+## Opaque secrets
+
+Opaque is the default Secret type if omitted. Creation of opaque secret:
+```shell
+kubectl create secret generic mypasswords --from-literal=key1=supersecret --from-literal=key2=topsecret
+```
+or with yaml file
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mypasswords
+data:
+  key1: c3VwZXJzZWNyZXQ=
+  key2: dG9wc2VjcmV0
+```
+key1 and key2 values go as base64 encoded strings
+
+## Docker registry auth data
+
+```shell
+kubectl create secret docker-registry dockerhub \
+  --docker-server=hub.docker.com \
+  --docker-username=dockerusername \
+  --docker-password=secret \
+  --docker-email=myemail@gmail.com
+```
+or 
+```yaml
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+metadata:
+  name: dockerhub
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodWIuZG9ja2VyLmNvbSI6eyJ1c2VybmFtZSI6ImRvY2tlcnVzZXJuYW1lIiwicGFzc3dvcmQiOiJzZWNyZXQiLCJlbWFpbCI6Im15ZW1haWxAZ21haWwuY29tIiwiYXV0aCI6IlpHOWphMlZ5ZFhObGNtNWhiV1U2YzJWamNtVjAifX19
+```
+where `.data.dockerconfigjson` is base64 encoded json with docker login data
+```json
+{
+  "auths": {
+    "hub.docker.com": {
+      "username": "dockerusername",
+      "password": "secret",
+      "email": "myemail@gmail.com",
+      "auth": "ZG9ja2VydXNlcm5hbWU6c2VjcmV0"
+    }
+  }
+}
+```
+
+## TLS secret
+
+TLS Secret contains `tls.key` and `tls.crt` keys, a pair of x509 certificate and a private key stored in pem format.
+
+When creating tls secret with kubectl, it checks provided data on:
+* private key structure
+* x509 certificate structure
+* key and certificate match each other
+
+```shell
+kubectl create secret tls my-cert \
+  --cert git/openssl-scripts/localhost.pem \
+  --key git/openssl-scripts/localhost.key
+```
+
+
 # Labels
 
 ## Get resource labels
