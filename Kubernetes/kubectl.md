@@ -807,6 +807,42 @@ cat /mypasswords/key2
 # topsecret
 ```
 
+### As a mount from Pod to a specific key path
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: nginx:alpine
+    volumeMounts:
+    - name: foo
+      mountPath: "/mypasswords"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mypasswords
+      items:
+        - key: key1
+          path: mykey1
+```
+Check
+```shell
+kubectl exec -ti mypod -- sh
+
+ls -l /mypasswords/
+# total 0
+# lrwxrwxrwx    1 root     root            13 Aug  4 11:57 mykey1 -> ..data/mykey1
+
+cat /mypasswords/mykey1 
+# supersecret
+```
+
+
 # Labels
 
 ## Get resource labels
