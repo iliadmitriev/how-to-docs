@@ -849,6 +849,7 @@ ls -l /mypasswords/..data/mykey1
 # -rw---x---    1 root     root            11 Aug  4 12:04 /mypasswords/..data/mykey1
 ```
 
+When a secret currently consumed in a volume is updated, projected keys are eventually updated as well. The kubelet checks whether the mounted secret is fresh on every periodic sync (it takes a while)
 
 # Labels
 
