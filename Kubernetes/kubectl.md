@@ -1144,8 +1144,25 @@ kubectl get po -o wide
 # nginx-deployment-5dfdbd8546-lmht4   1/1     Running   0          28m   10.244.3.2   minikube-m04   <none>           <none>
 # nginx-deployment-5dfdbd8546-rv8mg   1/1     Running   0          28m   10.244.0.3   minikube       <none>           <none>
 # nginx-deployment-5dfdbd8546-whks7   1/1     Running   0          28m   10.244.1.2   minikube-m02   <none>           <none>
+
+kubectl describe po nginx-deployment-5dfdbd8546-lmht4
+
+# ...
+# Events:
+#   Type     Reason            Age                 From               Message
+#   ----     ------            ----                ----               -------
+#   Warning  FailedScheduling  11m (x20 over 30m)  default-scheduler  0/3 nodes are available: 3 node(s) didn't match pod affinity/anti-affinity rules, 3 node(s) didn't match pod anti-affinity rules.
+#   Warning  FailedScheduling  11m                 default-scheduler  0/4 nodes are available: 1 node(s) had taint {node.kubernetes.io/not-ready: }, that the pod didn't tolerate, 3 node(s) didn't match pod affinity/anti-affinity rules, 3 node(s) didn't match pod anti-affinity rules.
+#   Normal   Scheduled         11m                 default-scheduler  Successfully assigned default/nginx-deployment-5dfdbd8546-lmht4 to minikube-m04
+#   Normal   Pulling           11m                 kubelet            Pulling image "nginx:1.20-alpine"
+#   Normal   Pulled            10m                 kubelet            Successfully pulled image "nginx:1.20-alpine" in 3.850949002s
+#   Normal   Created           10m                 kubelet            Created container nginx
+#   Normal   Started           10m                 kubelet            Started container nginx
+
 ```
-So now as we added a new node to cluster which wasn't have pods with label app=nginx kubernetes scheduler successfully deployed pod
+
+So now as we added a new node to cluster, which wasn't have pods with label app=nginx, kubernetes scheduler successfully deployed pod and changed status to `Running`
+
 
 # Deploying
 
