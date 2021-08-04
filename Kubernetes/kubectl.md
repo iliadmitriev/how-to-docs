@@ -1039,6 +1039,114 @@ kubectl uncordon minikube
 kubectl drain <node name>
 ```
 
+## Pod Affinity and anti-affinity
+
+Pod Affinity and Anti-affinity is a language on how pod attracted to node or distracted from node.
+There is two types of affinity and anti affinity:
+* `preferredDuringSchedulingIgnoredDuringExecution` is a set of soft rules
+* `requiredDuringSchedulingIgnoredDuringExecution` is hard requirements
+
+Let's assume we have 3 worker nodes in our kubernetes cluster (for example we will use [minikube setup](minikube.md))
+
+```shell
+kubectl get nodes
+
+# NAME           STATUS   ROLES                  AGE     VERSION
+# minikube       Ready    control-plane,master   9m56s   v1.21.2
+# minikube-m02   Ready    <none>                 9m16s   v1.21.2
+# minikube-m03   Ready    <none>                 8m41s   v1.21.2
+```
+
+Create deployment
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: "kubernetes.io/hostname"
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - nginx
+      containers:
+      - name: nginx
+        image: nginx:1.20-alpine
+        ports:
+        - containerPort: 80
+```
+This deployment means that during scheduling pods can't be on the same node (the node that has pods matching with selector `app In [nginx]`)
+
+Make sure the nodes all the pods running and they all running on different nodes
+```shell
+kubectl get po -o wide
+# NAME                                READY   STATUS    RESTARTS   AGE   IP           NODE           NOMINATED NODE   READINESS GATES
+# nginx-deployment-5dfdbd8546-5n2dg   1/1     Running   0          14s   10.244.2.2   minikube-m03   <none>           <none>
+# nginx-deployment-5dfdbd8546-rv8mg   1/1     Running   0          14s   10.244.0.3   minikube       <none>           <none>
+# nginx-deployment-5dfdbd8546-whks7   1/1     Running   0          14s   10.244.1.2   minikube-m02   <none>           <none>
+```
+
+Let's scale pods to 4 replicas
+```shell
+kubectl scale deployment nginx-deployment --replicas 4
+# deployment.apps/nginx-deployment scaled
+```
+
+And check pods 
+```shell
+kubectl get po -o wide                                
+# NAME                                READY   STATUS    RESTARTS   AGE   IP           NODE           NOMINATED NODE   READINESS GATES
+# nginx-deployment-5dfdbd8546-5n2dg   1/1     Running   0          36s   10.244.2.2   minikube-m03   <none>           <none>
+# nginx-deployment-5dfdbd8546-lmht4   0/1     Pending   0          2s    <none>       <none>         <none>           <none>
+# nginx-deployment-5dfdbd8546-rv8mg   1/1     Running   0          36s   10.244.0.3   minikube       <none>           <none>
+# nginx-deployment-5dfdbd8546-whks7   1/1     Running   0          36s   10.244.1.2   minikube-m02   <none>           <none>
+```
+4th pod has been created but is not running and have status `Pending`
+because of "hard" rules of anti-affinity.
+There is no node which hasn't pods with label app=nginx
+
+Let's create another worker node and add it to kubernetes cluster
+```shell
+minikube node add 
+# ...
+# 🔎  Verifying Kubernetes components...
+# 🏄  Successfully added m04 to minikube!
+
+kubectl get node 
+# NAME           STATUS   ROLES                  AGE   VERSION
+# minikube       Ready    control-plane,master   24m   v1.21.2
+# minikube-m02   Ready    <none>                 23m   v1.21.2
+# minikube-m03   Ready    <none>                 22m   v1.21.2
+# minikube-m04   Ready    <none>                 18s   v1.21.2
+```
+
+And check 4th pod status
+```shell
+kubectl get po -o wide
+# NAME                                READY   STATUS    RESTARTS   AGE   IP           NODE           NOMINATED NODE   READINESS GATES
+# nginx-deployment-5dfdbd8546-5n2dg   1/1     Running   0          28m   10.244.2.2   minikube-m03   <none>           <none>
+# nginx-deployment-5dfdbd8546-lmht4   1/1     Running   0          28m   10.244.3.2   minikube-m04   <none>           <none>
+# nginx-deployment-5dfdbd8546-rv8mg   1/1     Running   0          28m   10.244.0.3   minikube       <none>           <none>
+# nginx-deployment-5dfdbd8546-whks7   1/1     Running   0          28m   10.244.1.2   minikube-m02   <none>           <none>
+```
+So now as we added a new node to cluster which wasn't have pods with label app=nginx kubernetes scheduler successfully deployed pod
+
 # Deploying
 
 ## Rollout
