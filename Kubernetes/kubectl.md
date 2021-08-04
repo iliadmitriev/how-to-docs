@@ -50,6 +50,7 @@
 - [Nodes](#nodes)
   * [Cordon and uncordon node](#cordon-and-uncordon-node)
   * [Safely Drain a Node](#safely-drain-a-node)
+  * [Pod Affinity and anti-affinity](#pod-affinity-and-anti-affinity)
 - [Deploying](#deploying)
   * [Rollout](#rollout)
     + [Rollout restart](#rollout-restart)
