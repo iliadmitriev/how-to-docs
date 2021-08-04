@@ -768,6 +768,44 @@ kubectl create secret tls my-cert \
   --key git/openssl-scripts/localhost.key
 ```
 
+## Using secrets
+
+### As a mount from Pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: nginx:alpine
+    volumeMounts:
+    - name: foo
+      mountPath: "/mypasswords"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mypasswords
+```
+
+Check 
+```shell
+kubectl exec -ti mypod -- sh
+
+ls -l /mypasswords/
+# total 0
+# lrwxrwxrwx    1 root     root            11 Aug  4 11:52 key1 -> ..data/key1
+# lrwxrwxrwx    1 root     root            11 Aug  4 11:52 key2 -> ..data/key2
+
+cat /mypasswords/key1
+# supersecret
+
+cat /mypasswords/key2
+# topsecret
+```
 
 # Labels
 
