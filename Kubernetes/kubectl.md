@@ -809,6 +809,8 @@ cat /mypasswords/key2
 
 ### As a mount from Pod to a specific key path
 
+Set mode 0600 default
+and 0610 to a file mykey1
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -826,9 +828,11 @@ spec:
   - name: foo
     secret:
       secretName: mypasswords
+      defaultMode: 0600
       items:
         - key: key1
           path: mykey1
+          mode: 0610
 ```
 Check
 ```shell
@@ -840,6 +844,9 @@ ls -l /mypasswords/
 
 cat /mypasswords/mykey1 
 # supersecret
+
+ls -l /mypasswords/..data/mykey1 
+# -rw---x---    1 root     root            11 Aug  4 12:04 /mypasswords/..data/mykey1
 ```
 
 
