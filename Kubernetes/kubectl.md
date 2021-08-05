@@ -1841,6 +1841,14 @@ kubectl expose deployment nginx-deployment \
 
 ## Ingress
 
+
+```shell
+kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+kubectl scale deployment web --replicas 2
+kubectl expose deployment web --type=NodePort --port=8080
+kubectl create secret tls hello-world-tls --cert hw.pem --key hw.key
+```
+
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
