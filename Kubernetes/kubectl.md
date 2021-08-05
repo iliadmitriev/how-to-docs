@@ -773,9 +773,18 @@ When creating tls secret with kubectl, it checks provided data on:
 * key and certificate match each other
 
 ```shell
+# create a new certificate from files
 kubectl create secret tls my-cert \
   --cert git/openssl-scripts/localhost.pem \
   --key git/openssl-scripts/localhost.key
+```
+
+```shell
+# update existing sertificate from files
+kubectl create secret tls hello-world-tls \
+   --cert hw.pem --key hw.key \
+   --dry-run=client -o yaml 
+   --save-config | kubectl apply -f -
 ```
 
 ## Using secrets
