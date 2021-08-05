@@ -1839,6 +1839,37 @@ kubectl expose deployment nginx-deployment \
 * target-port - port of container
 * port - external port
 
+## Ingress
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tls-example-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  defaultBackend:
+    service:
+      name: web
+      port:
+        number: 8080
+  rules:
+  - host: hello-world.info
+    http:
+      paths:
+      - backend:
+          service:
+            name: web
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - hello-world.info
+    secretName: hello-world-tls
+```
 
 # Resources
 
