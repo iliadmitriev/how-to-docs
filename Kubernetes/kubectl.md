@@ -77,6 +77,8 @@
     + [Create ClusterIP](#create-clusterip)
     + [Create nodePort](#create-nodeport)
     + [Create LoadBalancer](#create-loadbalancer)
+  * [Ingress](#ingress)
+    + [Create ingress](#create-ingress)
 - [Resources](#resources)
 
 # Namespaces
