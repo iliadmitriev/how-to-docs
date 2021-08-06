@@ -1869,6 +1869,12 @@ kubectl create secret tls hello-world-tls \
 ```
 
 Create ingress
+```shell
+kubectl create ingress hello-world-ingress \
+  --default-backend=web:8080 \
+  --rule="hello-world.info/*=web:8080,tls=hello-world-tls"
+```
+or
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
