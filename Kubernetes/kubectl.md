@@ -1841,19 +1841,37 @@ kubectl expose deployment nginx-deployment \
 
 ## Ingress
 
-
+Before we start, we need to create deployment with 2 replicas and expose it with service of type NodePort
 ```shell
-kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
-kubectl scale deployment web --replicas 2
-kubectl expose deployment web --type=NodePort --port=8080
-kubectl create secret tls hello-world-tls --cert hw.pem --key hw.key
+kubectl create deployment web --replicas=2 \
+   --image=gcr.io/google-samples/hello-app:1.0
+
+kubectl expose deployment web \
+   --type=NodePort --port=8080
 ```
 
+if you are running minikube ingress addon and start tunnel
+```shell
+minikube addons enable ingress
+minikube tunnel
+```
+
+### Create ingress
+
+Generate self-signed certificate [using this doc](https://github.com/iliadmitriev/openssl-scripts#usage) for domain `hello-world.info` and create a secret of tls type named `hello-world-tls`
+
+```shell
+kubectl create secret tls hello-world-tls \
+  --cert hello-world.info.pem \
+  --key hello-world.info.key
+```
+
+Create ingress
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: tls-example-ingress
+  name: hello-world-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
@@ -1877,6 +1895,20 @@ spec:
   - hosts:
     - hello-world.info
     secretName: hello-world-tls
+```
+
+add string `127.0.0.1 hello-world.info` to your `/etc/hosts` file
+```shell
+sudo sed -i '' -e '$a\'$'\n''127.0.0.1 hello-world.info'$'\n'  /etc/hosts
+```
+
+Check ingress is working
+```shell
+curl https://hello-world.info
+
+Hello, world!
+Version: 1.0.0
+Hostname: web-79d88c97d6-vdqdp
 ```
 
 # Resources
