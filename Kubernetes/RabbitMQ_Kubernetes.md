@@ -16,12 +16,28 @@ Install operator
 ```shell
 kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 ```
+It will create 
+* new namespace `rabbitmq-system`
+* new custom resource `RabbitmqCluster`
+* role, cluster role, role bindings, cluster role binding and service account
+* deployment of `rabbitmq-cluster-operator`
 
-Install RabbitMQ cluster
+Check if custom resource `RabbitmqCluster` is installed
+```shell
+kubectl get customresourcedefinitions.apiextensions.k8s.io
+# NAME                                   CREATED AT
+# rabbitmqclusters.rabbitmq.com   2021-08-08T07:11:06Z
+```
+
+# Install RabbitMQ cluster
+
+Features
+* the latest alpine version of community image
 * 2 replicas
 * 500Mi memory
 * 0,5 vCPU core
 * 2Gb of persistent storage
+* securityContext for containers and initContainers
 ```yaml
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
