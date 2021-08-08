@@ -38,6 +38,7 @@ Features
 * 0,5 vCPU core
 * 2Gb of persistent storage
 * securityContext for containers and initContainers
+* default user `guest` with password `guest` with administrative privileges and default vhost `guest`
 ```yaml
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
@@ -50,6 +51,12 @@ metadata:
 spec:
   replicas: 2
   image: rabbitmq:3.9.1-management-alpine
+  rabbitmq:
+    additionalConfig: |
+      default_user = guest 
+      default_pass = guest
+      default_vhost = guest
+      default_user_tags.administrator = true
   resources:
     requests:
       cpu: 500m
@@ -71,6 +78,7 @@ spec:
               securityContext: {}
 ```
 
+# Cluster administrative web UI
 
 Create self-signed certificates using [this script](https://github.com/iliadmitriev/openssl-scripts#usage)
 ```shell
@@ -90,7 +98,7 @@ sudo sed -i '' -e '$a\'$'\n''127.0.0.1 rmq.taskcamp.info'$'\n'  /etc/hosts
 ```
 
 Install service of type NodePort and Ingress 
-```shell
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -135,6 +143,7 @@ spec:
     - rmq.taskcamp.info
     secretName: rmq-taskcamp-tls
 ```
+
 Start tunnel
 ```shell
 minikube tunnel
@@ -154,7 +163,26 @@ default_pass = _iVFRZWlP6PMBhMhwYvAW8TKP3dPyGkV
 Go to `https://rmq.taskcamp.info`
 and use default username and password
 
+# Test cluster
+
+Create pod which produce benchmark load to service `rmq-taskcamp` (user, password and vhost are `guest`)
+```shell
+kubectl run perf-test --image=pivotalrabbitmq/perf-test -- \
+   --uri "amqp://guest:guest@rmq-taskcamp/guest"
+```
+
+Watch load
+```shell
+kubectl logs -f perf-test
+```
+
+Stop load pod
+```shell
+kubectl delete pod perf-test
+```
+
 # References
 1. [RabbitMQ Operator](https://www.rabbitmq.com/kubernetes/operator/quickstart-operator.html)
 2. [Using RabbitMQ Operator](https://www.rabbitmq.com/kubernetes/operator/using-operator.html)
 3. [Cluster formation and peer discovery](https://www.rabbitmq.com/cluster-formation.html#peer-discovery-aws)
+4. [Deploying RabbitMQ on Kubernetes using RabbitMQ Cluster Operator](https://medium.com/nerd-for-tech/deploying-rabbitmq-on-kubernetes-using-rabbitmq-cluster-operator-ef99f7a4e417)
