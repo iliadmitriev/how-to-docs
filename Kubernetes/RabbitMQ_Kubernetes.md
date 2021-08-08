@@ -152,8 +152,9 @@ default_pass = _iVFRZWlP6PMBhMhwYvAW8TKP3dPyGkV
 ```
 
 Go to `https://rmq.taskcamp.info`
-use default username and password
+and use default username and password
 
 # References
 1. [RabbitMQ Operator](https://www.rabbitmq.com/kubernetes/operator/quickstart-operator.html)
 2. [Using RabbitMQ Operator](https://www.rabbitmq.com/kubernetes/operator/using-operator.html)
+3. [Cluster formation and peer discovery](https://www.rabbitmq.com/cluster-formation.html#peer-discovery-aws)
