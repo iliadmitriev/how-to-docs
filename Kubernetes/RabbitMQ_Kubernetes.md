@@ -2,7 +2,7 @@
 
 We use minikube deployment
 ```shell
-# create minikube with two nodes, ingress controller, metrics-server and dashboard
+# create minikube with two nodes, ingress, metrics-server and dashboard
 minikube start --nodes=2 --addons=ingress,metrics-server,dashboard
 ```
 Open dashboard
