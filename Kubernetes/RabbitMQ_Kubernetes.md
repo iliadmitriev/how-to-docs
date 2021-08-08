@@ -145,6 +145,11 @@ Get default username and password from rabbitmq cluster secret
 kubectl get secrets rmq-taskcamp-default-user \
    -o jsonpath='{.data.default_user\.conf}' | base64 -D
 ```
+Output
+```
+default_user = aSAQQWBBK7jb-_J0YYX5o8zojA7iWVwi
+default_pass = _iVFRZWlP6PMBhMhwYvAW8TKP3dPyGkV
+```
 
 Go to `https://rmq.taskcamp.info`
 use default username and password
