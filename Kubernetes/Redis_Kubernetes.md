@@ -20,6 +20,22 @@ data:
 # Stateful set
 
 ```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster
+  name: redis-cluster
+spec:
+  selector:
+    app: redis-cluster
+  ports:
+    - name: client
+      protocol: TCP
+      port: 6379
+      targetPort: 6379
+  type: ClusterIP
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
