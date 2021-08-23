@@ -42,6 +42,8 @@ Install pods specified in `Podfile`
 pod install
 ```
 
+Open with Xcode file `project.xcworkspace` and not `project.xcodeproj`
+
 # References
 1. [original documentation](https://cocoapods.org)
 2. [cocoapods guides](https://guides.cocoapods.org/using/using-cocoapods.html)
