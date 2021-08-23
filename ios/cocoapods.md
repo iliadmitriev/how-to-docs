@@ -17,6 +17,9 @@ brew install cocoapods
 
 # Podfile
 
+first create Xcode project `testapp`
+
+create file `Podfile`
 ```ruby
 platform :ios, '13.0'
 
@@ -34,7 +37,10 @@ pod 'Firebase/Analytics'
 
 # Using
 
-
+Install pods specified in `Podfile`
+```shell
+pod install
+```
 
 # References
 1. [original documentation](https://cocoapods.org)
