@@ -17,7 +17,20 @@ brew install cocoapods
 
 # Podfile
 
+```ruby
+platform :ios, '13.0'
 
+project 'instagram.xcodeproj'
+workspace 'instagram.xcodeproj/project.xcworkspace'
+
+
+pod 'Firebase'
+pod 'Firebase/Database'
+pod 'Firebase/Auth'
+pod 'Firebase/Storage'
+pod 'Firebase/Crash'
+pod 'Firebase/Analytics'
+```
 
 # Using
 
