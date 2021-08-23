@@ -23,16 +23,20 @@ create file `Podfile`
 ```ruby
 platform :ios, '13.0'
 
-project 'testapp.xcodeproj'
-workspace 'testapp.xcodeproj/project.xcworkspace'
+target 'inst' do
+  use_frameworks!
 
+  pod 'Firebase/Analytics'
 
-pod 'Firebase'
-pod 'Firebase/Database'
-pod 'Firebase/Auth'
-pod 'Firebase/Storage'
-pod 'Firebase/Crash'
-pod 'Firebase/Analytics'
+  target 'instTests' do
+    inherit! :search_paths
+  end
+
+  target 'instUITests' do
+
+  end
+
+end
 ```
 
 # Using
