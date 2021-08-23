@@ -17,13 +17,13 @@ brew install cocoapods
 
 # Podfile
 
-first create Xcode project `testapp`
+first create Xcode project `project`
 
-create file `Podfile`
+create file `Podfile` in project directory
 ```ruby
 platform :ios, '13.0'
 
-target 'inst' do
+target 'project' do
   use_frameworks!
 
   pod 'Firebase/Analytics'
