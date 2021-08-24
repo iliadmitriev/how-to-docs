@@ -64,6 +64,7 @@ var names: [String] = ["Joe", "John", "James"]
 var stuff: [Any] = [1.23, "some", 100]
 var emptyArr: [Float] = []
 
+// iterate
 for name in names {
     print("We have \(name) here")
 }
@@ -100,6 +101,11 @@ let removedElemet = names.remove(at: 1)
 let lastRemovedElement = names.removeLast()
 // ["Joe", "Samuel", "James", "Dave", "Mike"]
 
+// create a new array of sorted elemets
+var sortedNames = names.sorted()
+
+// sort array descending
+names.sort(by: >)
 ```
 
 ## Conditionals
@@ -222,7 +228,8 @@ if let myTitle = myPostTwo.title {
 
 # Protocols
 
-Protocols is analogue of Java interface
+Protocols is an analogue of Java interface
+
 ```swift
 // apple naming conventions
 // DataSource - implies data related functionality
