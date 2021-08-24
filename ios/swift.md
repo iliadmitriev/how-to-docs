@@ -108,6 +108,47 @@ var sortedNames = names.sorted()
 names.sort(by: >)
 ```
 
+## Dictionaries
+
+```swift
+// Dictionaries
+
+var emptyDict: [String: String] = [:]
+var anotherForm: Dictionary<String, String> = [:]
+var carsStocks: [String: Int] = [
+    "bmw": 10,
+    "audi": 5,
+    "lexus": 12
+]
+
+// iterate
+for car in carsStocks {
+    print(car.key, car.value)
+}
+// or
+for (key, value) in carsStocks {
+    print(key, value)
+}
+
+
+// check if dictionary is empty
+emptyDict.isEmpty
+
+// merge two dicts
+var newCars = ["honda":7, "toyota": 8, "bmw": 11]
+// merge keeping current values
+carsStocks.merge(newCars) { current, _ in
+    current
+}
+// ["toyota": 8, "lexus": 12, "bmw": 10, "honda": 7, "audi": 5]
+
+// merge replacing current values with new values
+carsStocks.merge(newCars) { _, new in
+    new
+}
+// ["audi": 5, "toyota": 8, "honda": 7, "lexus": 12, "bmw": 11]
+```
+
 ## Conditionals
 
 ```swift
