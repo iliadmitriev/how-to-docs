@@ -444,3 +444,9 @@ print(str.substring(from: 6))
 print(str.substring(with: 0..<5))
 
 ```
+
+# References
+
+1. [Swift language guide](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
+2. [Language reference](https://docs.swift.org/swift-book/ReferenceManual/Types.html)
+3. [Optional](https://habr.com/ru/post/338766/) 
