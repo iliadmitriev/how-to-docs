@@ -1,57 +1,13 @@
-
-# Classes
-
-```swift
-// classes
-class Person {
-    // attribute
-    var name = ""
-    // constructor
-    init(name: String) {
-        self.name = name
-    }
-}
-
-class BlogPost {
-    // attributes
-    var title: String?
-    var body = "hey"
-    var author: Person?
-    var numberOfComments: Int = 0
-    
-    // method returning value
-    func addComment() -> Int {
-        self.numberOfComments += 1
-        return self.numberOfComments
-    }
-    // method
-    func shareArticel() {
-        print(body)
-    }
-    // calculated property
-    var fullTitle: String {
-        if nil != self.title && nil != self.author {
-            return self.title! + " by " + self.author!.name
-        } else if nil != self.title {
-            return self.title!
-        } else {
-            return "No title"
-        }
-    }
-}
-// instance
-let myPost = BlogPost()
-
-myPost.title = "Title of post"
-myPost.author = Person(name: "John")
-print(myPost.fullTitle)
-
-let myPostTwo = BlogPost()
-myPost.title = "Another title of post"
-if let myTitle = myPostTwo.title {
-    print(myTitle)
-}
-```
+- [Types](#types)
+  * [Strings](#strings)
+  * [Conditionals](#conditionals)
+  * [Any type](#any-type)
+  * [Enums](#enums)
+- [Classes](#classes)
+- [Protocols](#protocols)
+- [Strong and weak memmory](#strong-and-weak-memmory)
+- [Closures](#closures)
+- [Extensions](#extensions)
 
 # Types
 
@@ -160,6 +116,61 @@ func checkState(_ value: States) {
 
 checkState(current)
 ```
+
+# Classes
+
+```swift
+// classes
+class Person {
+    // attribute
+    var name = ""
+    // constructor
+    init(name: String) {
+        self.name = name
+    }
+}
+
+class BlogPost {
+    // attributes
+    var title: String?
+    var body = "hey"
+    var author: Person?
+    var numberOfComments: Int = 0
+    
+    // method returning value
+    func addComment() -> Int {
+        self.numberOfComments += 1
+        return self.numberOfComments
+    }
+    // method
+    func shareArticel() {
+        print(body)
+    }
+    // calculated property
+    var fullTitle: String {
+        if nil != self.title && nil != self.author {
+            return self.title! + " by " + self.author!.name
+        } else if nil != self.title {
+            return self.title!
+        } else {
+            return "No title"
+        }
+    }
+}
+// instance
+let myPost = BlogPost()
+
+myPost.title = "Title of post"
+myPost.author = Person(name: "John")
+print(myPost.fullTitle)
+
+let myPostTwo = BlogPost()
+myPost.title = "Another title of post"
+if let myTitle = myPostTwo.title {
+    print(myTitle)
+}
+```
+
 
 # Protocols
 
