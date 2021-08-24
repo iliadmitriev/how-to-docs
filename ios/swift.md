@@ -194,9 +194,13 @@ jimmi.balloon = b
 if let bal = jimmi.balloon {
     print(bal.color)
 }
+```
 
+# Closures
 
-// Closures (sc name lambda)
+closures is lambda functions
+
+```swift
 func isGreaterThanThree(number: Int) -> Bool {
     number > 3
 }
