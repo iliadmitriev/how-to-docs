@@ -1,4 +1,5 @@
 - [Types](#types)
+  * [Numbers](#numbers)
   * [Strings](#strings)
   * [Arrays](#arrays)
   * [Dictionaries](#dictionaries)
@@ -12,6 +13,17 @@
 - [Extensions](#extensions)
 
 # Types
+
+## Numbers
+
+```swift
+// Numbers
+var valInteger: Int = 1 // Int
+var valDouble: Double = 1.00 // Double
+var valFloat: Float = 1.0000000000000001 // Float
+
+var result = Double(valInteger) + valDouble
+```
 
 ## Strings
 
