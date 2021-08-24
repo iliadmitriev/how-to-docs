@@ -55,6 +55,49 @@ if let myTitle = myPostTwo.title {
 
 # Types
 
+## Strings
+
+```swift
+// Strings
+let personName: String = "Steve Jobs"
+let banner: String = """
+    line 1
+    line 2
+    """
+// print string
+print(personName)
+// print utf-8 string
+print(personName.utf8)
+// print utf-16 string
+print(personName.utf16)
+
+// print string length
+print(personName.count)
+
+// get index of first 5 letters
+let first_idx=personName.index(personName.startIndex, offsetBy: 5)
+// get first 5 letters
+let first1 = personName[..<first_idx]
+// or prefix
+let first2 = personName.prefix(upTo: first_idx)
+// or
+let first3 = personName.prefix(5)
+
+// get last 4 letters
+let index = personName.index(personName.endIndex, offsetBy: -4)
+let last1 = personName[index...]
+// or suffix
+let last2 = personName.suffix(from: index)
+// or
+let last3 = personName.suffix(4)
+
+
+// get index of first met space or index of string's end
+let firstSpace = personName.firstIndex(of: " ") ?? personName.endIndex
+// get name (all characters between beginning of string and first met space
+let firstName = personName[..<firstSpace]
+```
+
 ## Conditionals
 
 ```swift
