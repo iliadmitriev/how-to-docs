@@ -8,7 +8,7 @@
   * [Enums](#enums)
 - [Classes](#classes)
 - [Protocols](#protocols)
-- [Strong and weak memmory](#strong-and-weak-memmory)
+- [Strong and weak memory](#strong-and-weak-memory)
 - [Closures](#closures)
 - [Extensions](#extensions)
 
@@ -333,7 +333,7 @@ class BMW: Car, CarDataSource {
 }
 ```
 
-# Strong and weak memmory
+# Strong and weak memory
 
 ```swift
 // Strong vs Weak
