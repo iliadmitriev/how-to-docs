@@ -1,6 +1,7 @@
 - [Types](#types)
   * [Strings](#strings)
   * [Arrays](#arrays)
+  * [Dictionaries](#dictionaries)
   * [Conditionals](#conditionals)
   * [Any type](#any-type)
   * [Enums](#enums)
