@@ -1,5 +1,6 @@
 - [Types](#types)
   * [Numbers](#numbers)
+    * [Operations](#operations)
   * [Strings](#strings)
   * [Arrays](#arrays)
   * [Dictionaries](#dictionaries)
@@ -23,6 +24,37 @@ var valDouble: Double = 1.00 // Double
 var valFloat: Float = 1.0000000000000001 // Float
 
 var result = Double(valInteger) + valDouble
+```
+
+### Operations
+
+```swift
+// Operations
+var x = 15
+var z = 4
+
+// addition
+var res1 = x + z
+// subtraction
+var rest2 = x - z
+// multiplication
+var res3 = x * z
+// division
+var res4 = x / z
+// modulus returns remainder of division
+var res5 = x % z
+// binary shift
+var res6 = z << 2
+
+import CoreData
+// exponent
+var res7 = exp(1.0)
+// power
+var res8 = pow(2.0, 3.0)
+// natural log
+var res9 = log(12.0)
+// sinus
+var res10 = sin(Double.pi / 3)
 ```
 
 ## Strings
