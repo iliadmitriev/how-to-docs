@@ -1,5 +1,6 @@
 - [Types](#types)
   * [Strings](#strings)
+  * [Arrays](#arrays)
   * [Conditionals](#conditionals)
   * [Any type](#any-type)
   * [Enums](#enums)
@@ -52,6 +53,53 @@ let last3 = personName.suffix(4)
 let firstSpace = personName.firstIndex(of: " ") ?? personName.endIndex
 // get name (all characters between beginning of string and first met space
 let firstName = personName[..<firstSpace]
+```
+
+## Arrays
+
+```swift
+// Arrays
+var numbers: [Int] = [1, 2, 3]
+var names: [String] = ["Joe", "John", "James"]
+var stuff: [Any] = [1.23, "some", 100]
+var emptyArr: [Float] = []
+
+for name in names {
+    print("We have \(name) here")
+}
+var floatsNums: Array<Float> = Array(arrayLiteral: 3.14, 2.78)
+
+// check if array is empty
+emptyArr.isEmpty
+
+// get elements count (array length)
+names.count
+
+// get first or last element
+if let firstElement = names.first,
+   let lastElement = names.last {
+    print(firstElement)
+    print(lastElement)
+}
+
+// add to array
+names.append("Dave")
+// ["Joe", "John", "James", "Dave"]
+names.append(contentsOf: ["Mike", "Liam"])
+// ["Joe", "John", "James", "Dave", "Mike", "Liam"]
+
+// insert at position shifting all elements
+names.insert("Samuel", at: 2)
+// ["Joe", "John", "Samuel", "James", "Dave", "Mike", "Liam"]
+
+// remove at position and return removed element
+let removedElemet = names.remove(at: 1)
+// ["Joe", "Samuel", "James", "Dave", "Mike", "Liam"]
+
+// remove last element and return removed element
+let lastRemovedElement = names.removeLast()
+// ["Joe", "Samuel", "James", "Dave", "Mike"]
+
 ```
 
 ## Conditionals
