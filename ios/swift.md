@@ -12,6 +12,7 @@
 - [Strong and weak memory](#strong-and-weak-memory)
 - [Closures](#closures)
 - [Extensions](#extensions)
+- [References](#references)
 
 # Types
 
