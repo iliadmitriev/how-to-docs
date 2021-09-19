@@ -43,7 +43,7 @@ git checkout openssl_1_1_1
 Create build directory and build gost-engine
 ```shell
 mkdir build; cd build
-cmake ../
+cmake -DCMAKE_BUILD_TYPE=Release ../
 make
 cd bin
 ls -al ./
@@ -62,6 +62,10 @@ Copy library file to openssl engines directory
 ```shell
 cp gost.1.1.dylib ${ENGINESDIR}/gost.dylib
 ls -la ${ENGINESDIR}
+```
+Or make install
+```shell
+make install
 ```
 
 ## Configure
