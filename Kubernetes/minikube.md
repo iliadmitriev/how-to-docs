@@ -139,14 +139,12 @@ minikube node add
 # Stop cluster nodes
 minikube stop
 
-# Delete nodes containers 
+# Delete nodes resources 
+minikube delete
+# or
 docker rm minikube
-docker rm minikube-m02 # ...
-
-# Delete networks
+docker rm minikube-m02
 docker network prune
-
-# Delete volumes
 docker volume prune
 
 # Delete local config and keys
