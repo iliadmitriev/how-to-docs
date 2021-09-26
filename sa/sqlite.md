@@ -5,7 +5,7 @@ pip install sqlalchemy
 ```
 
 Prepare and run
-```shell
+```python
 # imports
 from sqlalchemy import create_engine, Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
