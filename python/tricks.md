@@ -2,7 +2,7 @@
 
 #### CamelCase to snake_case
 
-```shell
+```python
 import re
 
 def camel_to_snake(name):
