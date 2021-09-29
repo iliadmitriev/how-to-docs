@@ -10,3 +10,4 @@
 8. [Docker](docker/README.md)
 9. [SQLAlchemy](sa/README.md)
 10. [Alembic](ALEMBIC.md)
+11. [Python tricks](python/tricks.md)
