@@ -11,4 +11,4 @@
 9. [SQLAlchemy](sa/README.md)
 10. [Alembic](ALEMBIC.md)
 11. [Python tricks](python/tricks.md)
-12. MySQL/MariaDB(mysql/README.md)
+12. [MySQL/MariaDB](mysql/README.md)
