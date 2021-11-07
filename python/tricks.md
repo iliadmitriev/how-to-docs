@@ -18,3 +18,16 @@ def camel_to_snake(name):
 import logging
 logging.basicConfig(level=logging.DEBUG)
 ```
+
+#### Disassemble classes, methods, function and other
+
+```python
+def len_str(s: str) -> int:
+    return len(s)
+    
+dis.dis(len_str)
+  2           0 LOAD_GLOBAL              0 (len)
+              2 LOAD_FAST                0 (s)
+              4 CALL_FUNCTION            1
+              6 RETURN_VALUE
+```
