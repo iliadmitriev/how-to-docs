@@ -28,8 +28,8 @@ esac \
 sudo ifconfig lo0 alias 192.168.11.1
 sudo ifconfig lo0 alias 192.168.11.2
 sudo ifconfig lo0 alias 192.168.11.3
-sudo ifconfig lo0 alias 192.168.12.4
-sudo ifconfig lo0 alias 192.168.13.5
+sudo ifconfig lo0 alias 192.168.11.4
+sudo ifconfig lo0 alias 192.168.11.5
 ```
 
 ```shell
