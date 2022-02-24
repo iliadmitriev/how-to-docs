@@ -1,7 +1,8 @@
 
 # Server
 
-create sertivicates using [docs](https://docs.docker.com/engine/security/protect-access/)
+create keys and sertificates using [docs](https://docs.docker.com/engine/security/protect-access/)
+or [scripts](https://github.com/iliadmitriev/openssl-scripts)
 
 create file `/etc/docker/daemon.json`
 ```json
