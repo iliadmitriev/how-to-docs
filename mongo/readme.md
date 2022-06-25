@@ -217,6 +217,29 @@ db.getCollection('memo').insertMany([
 ```
 </details>
 
+## update
+
+<details>
+	<summary>update multiple nested arrays with filter applied</summary>
+
+```js
+db.getCollection('memo').update(
+  {
+     '_id': {
+        $in: [
+          'fdbf3b6008b064101a6bb0edcf58e67a',
+          '2c5be738c6102ba9a33b4d4729e24eff'
+        ]
+     },
+     'data.goods.goodId': '6dd6d7a8c1e282f486fe7877486c7f82'
+  },
+  {
+    "$set": {'data.goods.$.available': true}
+  },
+  { multi: true }
+);
+```
+</details>
 
 ## delete
 
