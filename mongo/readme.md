@@ -37,25 +37,29 @@ db.getCollectionInfos({'name': 'memo'})
 ```
 
 ## select
+
 ```js
-db.getCollection('memo')
-db.getCollection('memo').find({'_id': 12345678})
+db.getCollection('memo').find({});
+db.getCollection('memo').find({'_id': 'fdbf3b6008b064101a6bb0edcf58e67a'});
 ```
-select with projection
+
+<details>
+	<summary>select with projection (expand)</summary>
+
 ```js
 db.getCollection('memo').find(
 {
   '_id': {
     $in: [
-		'fdbf3b6008b064101a6bb0edcf58e67a',
-		'd52c82dd7aa3dba58e305b87b12efe02',
-		'3d52aed99b80c882c3f20d6c830c5376'
-		]
-	},
-	'data.goods.type': 'fmcg',
+	'fdbf3b6008b064101a6bb0edcf58e67a',
+	'66e225a7ada99fe8fd9d15f938a94ce3'
+	]
+  },
+  'data.goods.type': 'fmcg',
   'data.goods.goodId': '6dd6d7a8c1e282f486fe7877486c7f82'
-});
+}, {'data.goods.goodId': 1, 'data.goods.price': 1});
 ```
+</details>
 
 
 ### aggregate
@@ -70,9 +74,12 @@ db.getCollection('memo').insert({'_id': 12345678})
 db['memo'].insert({'_id': 12345678})
 db.memo.insert({'_id': 12345678})
 ```
-2. more complex example
+2. more complex example of insert one record `db.collections.insertOne(documnent, options)`
+<details>
+  <summary>Expand insert one code example</summary>
+
 ```js
-db.getCollection('memo').insert({
+db.getCollection('memo').insertOne({
   '_id': 'fdbf3b6008b064101a6bb0edcf58e67a',
   'data': {
     'goods': [
@@ -101,6 +108,73 @@ db.getCollection('memo').insert({
   }
 });
 ```
+</details>
+
+3. insert many records `db.collection.insertMany(documents, options)`
+<details>
+  <summary>Expand insert many code example</summary>
+  
+```js
+db.getCollection('memo').insertMany([
+{
+  '_id': '2c5be738c6102ba9a33b4d4729e24eff',
+  'data': {
+    'goods': [
+      {
+        'goodId': '6dd6d7a8c1e282f486fe7877486c7f82',
+        'type': 'fmcg',
+        'name': 'milk',
+        'price': 10,
+        'available': true
+      },
+      {
+        'goodId': 'd1c8034bdf0733018fceb39ca251e1f5',
+        'type': 'fmcg',
+        'name': 'potato',
+        'price': 15,
+        'available': false
+      },
+      {
+        'goodId': 'd1c8034bdf0733018fceb39ca251e1f5',
+        'type': 'fmcg',
+        'name': 'soy milk',
+        'price': 9,
+        'available': false
+      }
+    ]
+  }
+},
+{
+  '_id': '66e225a7ada99fe8fd9d15f938a94ce3',
+  'data': {
+    'goods': [
+      {
+        'goodId': '6dd6d7a8c1e282f486fe7877486c7f82',
+        'type': 'fmcg',
+        'name': 'milk',
+        'price': 10,
+        'available': true
+      },
+      {
+        'goodId': 'd1c8034bdf0733018fceb39ca251e1f5',
+        'type': 'fmcg',
+        'name': 'potato',
+        'price': 15,
+        'available': false
+      },
+      {
+        'goodId': 'd1c8034bdf0733018fceb39ca251e1f5',
+        'type': 'fmcg',
+        'name': 'soy milk',
+        'price': 9,
+        'available': false
+      }
+    ]
+  }
+}
+]);
+```
+</details>
 
 
 ## delete
