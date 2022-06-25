@@ -110,6 +110,7 @@ db.getCollection('memo').aggregate([
 ## insert
 <details>
 	<summary>simple insert</summary>
+
 ```js
 db.getCollection('memo').insert({'_id': 12345678})
 db['memo'].insert({'_id': 12345678})
