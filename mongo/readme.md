@@ -64,11 +64,44 @@ db.getCollection('memo').find({'_id': 12345678}).itcount()
 ```
 
 ## insert
+1. simple
 ```js
 db.getCollection('memo').insert({'_id': 12345678})
 db['memo'].insert({'_id': 12345678})
 db.memo.insert({'_id': 12345678})
 ```
+2. more complex example
+```js
+db.getCollection('memo').insert({
+  '_id': 'fdbf3b6008b064101a6bb0edcf58e67a',
+  'data': {
+    'goods': [
+      {
+        'goodId': '6dd6d7a8c1e282f486fe7877486c7f82',
+        'type': 'fmcg',
+        'name': 'milk',
+        'price': 10,
+        'available': true
+      },
+      {
+        'goodId': 'd1c8034bdf0733018fceb39ca251e1f5',
+        'type': 'fmcg',
+        'name': 'potato',
+        'price': 15,
+        'available': false
+      },
+      {
+        'goodId': 'd1c8034bdf0733018fceb39ca251e1f5',
+        'type': 'fmcg',
+        'name': 'soy milk',
+        'price': 9,
+        'available': false
+      }
+    ]
+  }
+});
+```
+
 
 ## delete
 ```js
