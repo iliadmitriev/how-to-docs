@@ -250,10 +250,11 @@ db.getCollection('memo').update(
 ```js
 db.getCollection('memo').remove({'_id': 12345678})
 ```
-</delete>
+</details>
 
 # other
 get connection string
-```
+
+```js
 db.getMongo()
 ```
