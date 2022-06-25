@@ -68,6 +68,7 @@ db.getCollection('memo').find(
 ### aggregate records
 <details>
 	<summary>count</summary>
+	
 ```js
 db.getCollection('memo').find({'_id': 12345678}).itcount()
 ```
@@ -218,9 +219,14 @@ db.getCollection('memo').insertMany([
 
 
 ## delete
+
+<details>
+	<summary>simple delete by math</summary>
+	
 ```js
 db.getCollection('memo').remove({'_id': 12345678})
 ```
+</delete>
 
 # other
 get connection string
