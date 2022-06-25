@@ -36,12 +36,15 @@ db.getCollectionNames()
 db.getCollectionInfos({'name': 'memo'})
 ```
 
-## select
-
+## find records
+<details>
+	<summary>simple select (all, by id)</summary>
+	
 ```js
 db.getCollection('memo').find({});
 db.getCollection('memo').find({'_id': 'fdbf3b6008b064101a6bb0edcf58e67a'});
 ```
+</details>
 
 <details>
 	<summary>select with projection (expand)</summary>
@@ -62,21 +65,59 @@ db.getCollection('memo').find(
 </details>
 
 
-### aggregate
-```ja
+### aggregate records
+<details>
+	<summary>count</summary>
+```js
 db.getCollection('memo').find({'_id': 12345678}).itcount()
 ```
+</details>
+
+<details>
+	<summary>pipeline with filter(match), unwind (denormalize), project</summary>
+
+```js
+db.getCollection('memo').aggregate([
+
+{$match: {'_id': {
+	$in: [
+		'fdbf3b6008b064101a6bb0edcf58e67a',
+		'2c5be738c6102ba9a33b4d4729e24eff'
+		]
+	}
+}},
+
+{$unwind: {
+  path: '$data.goods'
+}},
+
+{$match: {
+  'data.goods.available': false
+}},
+
+{$project: {
+  '_id': 1,
+  'data.goods.goodId': 1,
+  'data.goods.name': 1,
+  'data.goods.price': 1,
+}}
+
+]);
+```
+</details>
 
 ## insert
-1. simple
+<details>
+	<summary>simple insert</summary>
 ```js
 db.getCollection('memo').insert({'_id': 12345678})
 db['memo'].insert({'_id': 12345678})
 db.memo.insert({'_id': 12345678})
 ```
-2. more complex example of insert one record `db.collections.insertOne(documnent, options)`
+</details>
+
 <details>
-  <summary>Expand insert one code example</summary>
+  <summary>insert one record <code>db.collections.insertOne(documnent, options)</code></summary>
 
 ```js
 db.getCollection('memo').insertOne({
@@ -110,9 +151,8 @@ db.getCollection('memo').insertOne({
 ```
 </details>
 
-3. insert many records `db.collection.insertMany(documents, options)`
 <details>
-  <summary>Expand insert many code example</summary>
+	<summary>insert many records <code>db.collection.insertMany(documents, options)</code></summary>
   
 ```js
 db.getCollection('memo').insertMany([
