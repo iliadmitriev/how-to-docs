@@ -176,7 +176,7 @@ openssl@1.1 pkey -in ca.key -check -pubcheck -noout
 
 Check certificate is valid
 ```shell
-openssl@1.1 x509 -in ca.cer -text -noout
+openssl@1.1 x509 -in ca.cer -text -noout -engine gost
 ```
 
 ## Parse ASN.1 structure of key or certificate
