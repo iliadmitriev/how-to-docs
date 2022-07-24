@@ -241,3 +241,19 @@ openssl@1.1 smime -decrypt -engine gost -binary -noattr \
             -inkey ca.key -in output.enc -inform DER -out output.2.txt 
 ``` 
 
+### Openssl 3.0
+
+#### Using `kuznechik`
+
+Encode file and store output in DER format with `kuznechik`
+
+```shell
+openssl@3 smime -encrypt -engine gost -binary -noattr -kuznyechik-ctr-acpkm-omac \
+            -in input.txt -out output.enc -outform DER ca1.cer 
+```
+
+Decode with `kuznechik`
+```shell
+openssl@3 smime -decrypt -engine gost -binary -noattr \
+            -inkey ca1.key -in output.enc -inform DER -out output.2.txt
+```
