@@ -40,6 +40,8 @@ edit line `ZSH_THEME="robbyrussell"`
 
 set to desirable theme: `michelebologna`
 
+more themes here https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
 add to the end of file:
 ```
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
