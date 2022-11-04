@@ -31,3 +31,14 @@ dis.dis(len_str)
               4 CALL_FUNCTION            1
               6 RETURN_VALUE
 ```
+
+#### Jinga one-liner test
+```python
+from jinja2 import Environment
+import jinja2.filters
+
+jinja2.filters.FILTERS['mul_by_10'] = lambda x: x * 10
+tpl = Environment().from_string("{{ data.val | mul_by_10 }}")
+tpl.render(data={'val': 10})
+
+```
