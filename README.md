@@ -17,3 +17,4 @@ How to documents collection
 13. [Java](java/java.md)
 14. [MongoDB](mongo/readme.md)
 15. [Kafka](kafka/readme.md)
+16. [install and tune up zsh](zsh/zsh_install.md)
