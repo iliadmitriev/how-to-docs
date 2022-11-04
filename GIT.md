@@ -1,3 +1,11 @@
+## Git initial setup
+
+```shell
+git config --global user.name "Ilia Dmitriev"
+git config --global user.email "ilia.dmitriev@gmail.com"
+git config --global core.pager ""
+```
+
 ## Cherry-pick commits from another remote
 
 ```shell
