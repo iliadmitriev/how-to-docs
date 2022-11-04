@@ -70,3 +70,4 @@ unpack somewhere
 
 install fonts with font-manager
 
+set defualt font for teminal `JetBrainsMonoNL Nerd Font Mono`
