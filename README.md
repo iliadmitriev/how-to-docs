@@ -18,3 +18,4 @@ How to documents collection
 14. [MongoDB](mongo/readme.md)
 15. [Kafka](kafka/readme.md)
 16. [install and tune up zsh](zsh/zsh_install.md)
+17. [Jetbrains tricks](jetbrains/tricks.md)
