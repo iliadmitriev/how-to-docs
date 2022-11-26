@@ -42,3 +42,23 @@ tpl = Environment().from_string("{{ data.val | mul_by_10 }}")
 tpl.render(data={'val': 10})
 
 ```
+
+### access to clipboard data from python for MacOS
+
+using MacOS commands `pbcopy` and `pbpaste`
+
+```python
+import subprocess
+
+def getClipboardData():
+    p = subprocess.Popen(['pbpaste'], stdout=subprocess.PIPE)
+    retcode = p.wait()
+    data = p.stdout.read()
+    return data
+
+def setClipboardData(data):
+    p = subprocess.Popen(['pbcopy'], stdin=subprocess.PIPE)
+    p.stdin.write(data)
+    p.stdin.close()
+    retcode = p.wait()
+```
