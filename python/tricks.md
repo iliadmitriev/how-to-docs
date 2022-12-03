@@ -62,3 +62,14 @@ def setClipboardData(data):
     p.stdin.close()
     retcode = p.wait()
 ```
+
+#### flatten list
+
+```python
+l = [[1,2,3], [1,4,5], [7],[8]]
+print(sum(l, list()))
+```
+
+```
+[1, 2, 3, 1, 4, 5, 7, 8]
+```
