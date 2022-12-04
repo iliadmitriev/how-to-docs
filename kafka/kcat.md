@@ -61,3 +61,19 @@ kcat -b 10.1.1.1:9093 \
 
 
 currently `librdkafka` doesn't support `JKS` truststores and keystores
+
+#### Use Config file with properties
+
+Create config file with properties `client.properties`
+
+```properties
+security.protocol=SSL  
+ssl.ca.location=ca.pem  
+ssl.keystore.location=client.p12  
+ssl.keystore.password=filesecret  
+ssl.key.password=keysecret
+```
+
+```bash
+kcat -b localhost:9093 -F client.properties -C -t my-topic 
+```
