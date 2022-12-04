@@ -62,7 +62,11 @@ ssl.truststore.password=secret
 ssl.enabled.protocols=TLSv1.2,TLSv1.1,TLSv1
 ```
 
-Create key and truststore using [KeyStore Explorer](https://keystore-explorer.org/) or [Openssl](https://github.com/iliadmitriev/openssl-scripts) and convert it to jks
+Create client, server keystores and truststore using [KeyStore Explorer](https://keystore-explorer.org/) or [Openssl](https://github.com/iliadmitriev/openssl-scripts) and convert it to jks
+1. Root CA key pair (key and certificate) adding CA extention 
+2. Server key pair signed with Root CA (Sing new key pair) and added extention *TLS Web Server Authentication (1.3.6.1.5.5.7.3.1)*
+3. Client key pair signed with Root CA and added extention *TLS Web Client Authentication  (1.3.6.1.5.5.7.3.2)*
+Export Root CA to trustsore,  save server and client key pairs to keystores
 
 Use connect.properties as command config with  `kafka-topics` and `kafka-configs`
 ```bash
