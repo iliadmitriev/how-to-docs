@@ -2,28 +2,28 @@
 
 ## RNN model and definitions
 
-$$a^{<0>}=[0..0]$$
+$$a^{\langle 0\rangle }=[0..0]$$
 
-$$a^{<1>}=g_{1}(W_{aa}a^{<0>}+W_{ax}x^{1}+b_{a})$$
+$$a^{\langle 1\rangle }=g_{1}(W_{aa}a^{\langle 0\rangle }+W_{ax}x^{1}+b_{a})$$
 
-$$\hat y^{<1>}=g_{2}(W_{ya}a^{<1>}+b_{y})$$
+$$\hat y^{\langle 1\rangle }=g_{2}(W_{ya}a^{\langle 1\rangle }+b_{y})$$
 
-$$a^{<t>}=g(W_{aa}a^{<t-1>}+W_{ax}x^{<t>}+b_a)$$
+$$a^{\langle t\rangle }=g(W_{aa}a^{\langle t-1\rangle }+W_{ax}x^{\langle t\rangle }+b_a)$$
 
-$$\hat y^{<t>}=g(W_{ya}a^{<t>}+b_y)$$
+$$\hat y^{\langle t\rangle }=g(W_{ya}a^{\langle t\rangle }+b_y)$$
 
 ### Backpropagation through time
 
-$$\mathcal{L}^{<t>}(\hat{y}^{<t>}, y^{<t>})=-y^{<t>}\log(\hat{y}^{<t>})-(1-y^{<t>})\log{1-\hat{y}^{<t>}}$$
+$$\mathcal{L}^{\langle t\rangle }(\hat{y}^{\langle t\rangle }, y^{\langle t\rangle })=-y^{\langle t\rangle }\log(\hat{y}^{\langle t\rangle })-(1-y^{\langle t\rangle })\log{1-\hat{y}^{\langle t\rangle }}$$
 
-$$\mathcal{L}(\hat{y},y)=\sum_{t=1}^{T_{y}}\mathcal{L}^{<t>}(\hat{y}^{<t>},y^{<t>})$$
+$$\mathcal{L}(\hat{y},y)=\sum_{t=1}^{T_{y}}\mathcal{L}^{\langle t\rangle }(\hat{y}^{\langle t\rangle },y^{\langle t\rangle })$$
 
 ## Gated Recurrent Unit
 
-$$\tilde{c}^{<t>}=\tanh(W_{c}[\Gamma_{r}*c^{<t-1>},x^{<t>}]+b_c)$$
+$$\tilde{c}^{\langle t\rangle }=\tanh(W_{c}[\Gamma_{r}*c^{\langle t-1\rangle },x^{\langle t\rangle }]+b_c)$$
 
-$$\Gamma_{u}=\sigma(W_{u}[c^{<t-1>},x^{<t>}] + b_u)$$
+$$\Gamma_{u}=\sigma(W_{u}[c^{\langle t-1\rangle },x^{\langle t\rangle }] + b_u)$$
 
-$$\Gamma_r=\sigma(W_r[c^{<t-1>},x^{<t>}]+b_c)$$
+$$\Gamma_r=\sigma(W_r[c^{\langle t-1\rangle },x^{\langle t\rangle }]+b_c)$$
 
-$$c^{<t>}=\Gamma_u*\tilde{c}^{<t>}+(1-\Gamma_u)*c^{<t-1>}$$
+$$c^{\langle t\rangle }=\Gamma_u*\tilde{c}^{\langle t\rangle }+(1-\Gamma_u)*c^{\langle t-1\rangle }$$
