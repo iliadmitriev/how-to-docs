@@ -19,3 +19,4 @@ How to documents collection
 15. [Kafka](kafka/readme.md)
 16. [install and tune up zsh](zsh/zsh_install.md)
 17. [Jetbrains tricks](jetbrains/tricks.md)
+18. [Neural Networks](ML/nn.md)
