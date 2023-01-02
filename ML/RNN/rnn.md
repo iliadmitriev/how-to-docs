@@ -4,7 +4,7 @@
 
 $$a^{\langle 0\rangle }=[0..0]$$
 
-$$a^{\langle 1\rangle }=g_{1}(W_{aa}a^{\langle 0\rangle }+W_{ax}x^{1}+b_{a})$$
+$$a^{\langle 1\rangle }=g_{1}(W_{aa}a^{\langle 0\rangle }+W_{ax}x^{\langle 1 \rangle}+b_{a})$$
 
 $$\hat y^{\langle 1\rangle }=g_{2}(W_{ya}a^{\langle 1\rangle }+b_{y})$$
 
