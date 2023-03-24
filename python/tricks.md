@@ -1,5 +1,4 @@
 
-
 #### CamelCase to snake_case
 
 ```python
@@ -10,7 +9,6 @@ def camel_to_snake(name):
   return re.sub('([a-z0-9])([A-Z])', r'\1_\2', name).lower()
 
 ```
-
 
 #### Logging
 
@@ -43,7 +41,7 @@ tpl.render(data={'val': 10})
 
 ```
 
-### access to clipboard data from python for MacOS
+#### Access to clipboard data from python for MacOS
 
 using MacOS commands `pbcopy` and `pbpaste`
 
@@ -63,7 +61,7 @@ def setClipboardData(data):
     retcode = p.wait()
 ```
 
-#### flatten list
+#### Flatten list
 
 ```python
 l = [[1,2,3], [1,4,5], [7],[8]]
@@ -72,4 +70,29 @@ print(sum(l, list()))
 
 ```
 [1, 2, 3, 1, 4, 5, 7, 8]
+```
+
+#### Profile python code
+
+collect stats:
+```python
+import cProfile
+with cProfile.Profile(builtins=False) as pr:
+    main()
+pr.dump_stats("tmp.stats")
+```
+
+vizualize:
+```shell
+brew install graphviz
+pip3 install gprof2dot 
+gprof2dot -f pstats tmp.stats | dot -Tsvg -o tmp.svg 
+````
+
+visualize with QCacheGrind:
+```shell
+pip3 install pyprof2calltree
+pyprof2calltree -i tmp.stats -o tmp.calltree
+brew install qcachegrind
+qcachegrind tmp.calltree
 ```
