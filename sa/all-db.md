@@ -42,7 +42,7 @@ import asyncio
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import URL, sessionmaker
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
@@ -56,7 +56,16 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
 # db url
-DATABASE_URL = "postgresql+asyncpg://user:secret@192.168.10.1:5432/user"
+DATABASE_URL = URL.create(
+    drivername="postgresql+asyncpg",
+    host="localhost",
+    port=5432,
+    username="item",
+    password="secret",
+    database="item"
+)
+
+#DATABASE_URL = "postgresql+asyncpg://user:secret@192.168.10.1:5432/user"
 #DATABASE_URL = "mysql+asyncmy://user:secret@192.168.10.1:3306/user"
 #DATABASE_URL = "sqlite+aiosqlite://?cache=shared"
 #DATABASE_URL = "sqlite+aiosqlite:///user.db?cache=shared"
