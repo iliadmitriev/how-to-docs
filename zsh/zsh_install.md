@@ -13,7 +13,7 @@ chsh -s /usr/bin/zsh
 and don't forget to restart your gnome session to apply changes
 
 on first start press 2
-to populate `~/.zshrc` wiht default recommended configuration
+to populate `~/.zshrc` with default recommended configuration
 
 
 # install oh-my-zsh dependencies
