@@ -42,7 +42,15 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
 # postgresql db
-DATABASE_URL = "postgresql+asyncpg://auth:authsecret@192.168.10.1:5432/auth"
+DATABASE_URL = URL.create(
+    drivername="postgresql+asyncpg",
+    host="localhost",
+    port=5432,
+    username="auth",
+    password="authsecret",
+    database="auth"
+)
+
 # async engine
 engine = create_async_engine(DATABASE_URL, echo=True)
 # async session
