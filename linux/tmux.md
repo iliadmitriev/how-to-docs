@@ -17,10 +17,12 @@ bind-key -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcop
 
 * `Ctrl + b`  base key
 * `Ctrl + b :` start typing command
-* `Ctrl + b %` split window on 2 panes horizontally (left and right)
-* `Ctrl + b "` split window on 2 panes vertically (top and bottom)
+* `Ctrl + b %` split on 2 panes horizontally (left and right)
+* `Ctrl + b "` split on 2 panes vertically (top and bottom)
 * `Ctrl + b c` create a new window
-* `Ctrl + c d` detach from tmux
+* `Ctrl + b d` detach from tmux
+* `Ctrl + b w` show windows and panes
+* `Ctrl + b ?` show binded keys
 
 
 ### Commands
