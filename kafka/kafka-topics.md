@@ -80,6 +80,21 @@ kafka-configs --command-config connect.properties --bootstrap-server "SSL://loca
 
 ## Kafka consumer groups
 
+List
+
 ```bash
-./kafka-consumer-groups --bootstrap-server "localhost:9092" --group worker-group --describe
+kafka-consumer-groups --bootstrap-server "localhost:9092" --list
+```
+
+Describe
+
+```bash
+kafka-consumer-groups --bootstrap-server "localhost:9092" --group worker-group --describe
+```
+
+Reset Offsets to latest offset. Can be used with dry run option `--dry-run`.
+Option `--execute` confirms operation.
+
+```bash
+kafka-consumer-groups --bootstrap-server "localhost:9092" --topic worker-queue --group worker-group --reset-offsets --to-latest --execute
 ```
