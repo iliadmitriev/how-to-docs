@@ -76,3 +76,10 @@ kafka-topics --command-config connect.properties --bootstrap-server "SSL://local
 ```bash
 kafka-configs --command-config connect.properties --bootstrap-server "SSL://localhost:9093" --describe --all --topic new_topic
 ```
+
+
+## Kafka consumer groups
+
+```bash
+./kafka-consumer-groups --bootstrap-server "localhost:9092" --group worker-group --describe
+```
