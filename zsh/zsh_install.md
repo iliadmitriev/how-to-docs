@@ -1,4 +1,12 @@
-# install zsh with dependencies
+---
+id: zsh_install
+aliases: []
+tags: []
+---
+
+# zsh
+
+## install zsh with dependencies
 
 ```bash
 sudo apt install zsh zsh-antigen zsh-doc zsh-syntax-highlighting zsh-autosuggestions
@@ -16,13 +24,13 @@ on first start press 2
 to populate `~/.zshrc` with default recommended configuration
 
 
-# install oh-my-zsh dependencies
+## install oh-my-zsh dependencies
 
 ```bash
 sudo apt install git curl
 ```
 
-# install oh-my-zsh
+## install oh-my-zsh
 
 using https://ohmyz.sh/#install install `oh-my-zsh`
 
@@ -30,7 +38,16 @@ using https://ohmyz.sh/#install install `oh-my-zsh`
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-# edit file `~/.zshrc` to set defautl theme
+## choose theme
+
+```bash
+omz theme list
+omz theme use theme
+omz theme set theme
+```
+
+
+edit file `~/.zshrc` to set defautl theme
 
 ```bash
 gedit ~/.zshrc
@@ -57,7 +74,7 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 _EOF_
 ```
 
-# install nerd fonts
+## install nerd fonts
 
 ###  using `font-manager`
 

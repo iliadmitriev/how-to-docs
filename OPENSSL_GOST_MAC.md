@@ -1,4 +1,12 @@
-# Openssl with GOST 2012 for macOS (including M1 Apple Silicone)
+---
+id: OPENSSL_GOST_MAC
+aliases: []
+tags: []
+---
+
+# Openssl
+
+With GOST 2012 for macOS (including M1 Apple Silicone)
 
 How-to documentation on GOST R 34.10-2012 digital signature algorithm
 for macOS (including M1 Apple Silicone)
