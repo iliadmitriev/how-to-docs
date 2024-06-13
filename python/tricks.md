@@ -1,3 +1,9 @@
+---
+id: tricks
+aliases: []
+tags: []
+---
+
 
 #### CamelCase to snake_case
 
@@ -95,4 +101,11 @@ pip3 install pyprof2calltree
 pyprof2calltree -i tmp.stats -o tmp.calltree
 brew install qcachegrind
 qcachegrind tmp.calltree
+```
+
+#### Break running code and interact with debugger
+
+```python
+import code
+code.interact(local=locals())
 ```
