@@ -37,3 +37,9 @@ Log starting offset: 0
 baseOffset: 0 lastOffset: 0 count: 1 baseSequence: 0 lastSequence: 0 producerId: 1 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 0 CreateTime: 1729573472640 size: 96 magic: 2 compresscodec: none crc: 3570448100 isvalid: true
 | offset: 0 CreateTime: 1729573472640 keySize: -1 valueSize: 28 sequence: 0 headerKeys: [] payload: {"message": "test message1"}
 ```
+
+## List producers
+
+```bash
+kafka-transactions --bootstrap-server localhost:9092 describe-producers --topic test-topic --partition 0
+```
