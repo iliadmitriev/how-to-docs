@@ -7,6 +7,18 @@ kafka-topics --bootstrap-server localhost:9092 --create --topic test-topic --par
 echo '{"message": "test message1"}' | kafka-console-producer --bootstrap-server localhost:9092 --topic test-topic
 ```
 
+## Get Offsets for partitions
+
+```bash
+kafka-run-class.sh kafka.tools.GetOffsetShell --bootstrap-server localhost:9092 --topic test-topic
+```
+
+```
+test-topic:0:1
+```
+
+## Parse log file
+
 Parse a log file and dump its contents to the console.
 
 ```bash
