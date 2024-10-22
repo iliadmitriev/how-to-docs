@@ -4,7 +4,7 @@ Create some data
 
 ```bash
 kafka-topics --bootstrap-server localhost:9092 --create --topic test-topic --partitions 1
-echo '{"message": "test message1"}' | kafka-console-producer --bootstrap-server localhost:9092 --topic test-topic
+echo '{"message": "test message 1"}' | kafka-console-producer --bootstrap-server localhost:9092 --topic test-topic
 ```
 
 ## Get Offsets for partitions
@@ -50,4 +50,43 @@ kafka-transactions --bootstrap-server localhost:9092 describe-producers --topic 
 
 ```bash
 kafka-e2e-latency localhost:9092 test-topic 5 1 100
+```
+
+## Delete messages
+
+Add some more data
+
+```bash
+echo '{"message": "test message 2"}' | kafka-console-producer --bootstrap-server localhost:9092 --topic test-topic
+echo '{"message": "test message 3"}' | kafka-console-producer --bootstrap-server localhost:9092 --topic test-topic
+```
+
+Create delete file
+
+```bash
+cat > __del.json << _EOF_
+{"partitions":[{"topic":"test-topic","partition":0,"offset":1}]}
+_EOF_
+```
+
+Delete (shift low watermark)
+
+```bash
+kafka-delete-records --bootstrap-server localhost:9092 --offset-json-file __del.json 
+```
+
+```bash
+Executing records delete operation
+Records delete operation completed:
+partition: test-topic-0	low_watermark: 1
+```
+
+```bash
+rm __del.json
+```
+
+check deleted
+
+```bash
+kafka-console-consumer --bootstrap-server localhost:9092 --topic test-topic --from-beginning
 ```
