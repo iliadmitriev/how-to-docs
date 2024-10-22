@@ -43,3 +43,9 @@ baseOffset: 0 lastOffset: 0 count: 1 baseSequence: 0 lastSequence: 0 producerId:
 ```bash
 kafka-transactions --bootstrap-server localhost:9092 describe-producers --topic test-topic --partition 0
 ```
+
+## Measure e2e Latency
+
+```bash
+kafka-e2e-latency localhost:9092 test-topic 5 1 100
+```
