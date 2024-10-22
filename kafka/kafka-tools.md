@@ -10,7 +10,9 @@ echo '{"message": "test message1"}' | kafka-console-producer --bootstrap-server 
 ## Get Offsets for partitions
 
 ```bash
-kafka-run-class.sh kafka.tools.GetOffsetShell --bootstrap-server localhost:9092 --topic test-topic
+kafka-get-offsets --bootstrap-server localhost:9092 --topic test-topic
+# or 
+kafka-run-class kafka.tools.GetOffsetShell --bootstrap-server localhost:9092 --topic test-topic
 ```
 
 ```
