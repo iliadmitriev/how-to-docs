@@ -1,4 +1,6 @@
-# Kafka producer
+# kcat
+
+## Kafka producer
 
 ```shell
 kcat -P -b 10.1.1.1:9093 \
@@ -9,9 +11,9 @@ kcat -P -b 10.1.1.1:9093 \
      -X ssl.ca.location=ca.pem -e | wc -l
 ```
 
-# Kakfa consumer
+## Kakfa consumer
 
-## Count messages
+### Count messages
 
 ```shell
 kcat -C -b 10.1.1.1:9093 \
@@ -22,7 +24,7 @@ kcat -C -b 10.1.1.1:9093 \
      -X ssl.ca.location=ca.pem -e | wc -l
 ```
 
-## Start consuming from end
+### Start consuming from end
 
 ```shell
 kcat -C -b 10.1.1.1:9093 \
@@ -34,7 +36,8 @@ kcat -C -b 10.1.1.1:9093 \
      -o end
 ```
 
-## Start consuming from end with group of consumers autorebalancing partitions
+### Start consuming from end with group of consumers autorebalancing partitions
+
 ```shell
 kcat -C -b 10.1.1.1:9093 \
      -X security.protocol=SSL \
@@ -44,7 +47,7 @@ kcat -C -b 10.1.1.1:9093 \
      -G my-group my-topic
 ```
 
-### Using P12 keystore
+#### Using P12 keystore
 
 p12 storage can be used for key and certificate pair
 
@@ -59,21 +62,21 @@ kcat -b 10.1.1.1:9093 \
 
 ```
 
-
 currently `librdkafka` doesn't support `JKS` truststores and keystores
 
-#### Use Config file with properties
+##### Use Config file with properties
 
 Create config file with properties `client.properties`
 
 ```properties
-security.protocol=SSL  
-ssl.ca.location=ca.pem  
-ssl.keystore.location=client.p12  
-ssl.keystore.password=filesecret  
+security.protocol=SSL
+ssl.ca.location=ca.pem
+ssl.keystore.location=client.p12
+ssl.keystore.password=filesecret
 ssl.key.password=keysecret
 ```
 
 ```bash
-kcat -b localhost:9093 -F client.properties -C -t my-topic 
+kcat -b localhost:9093 -F client.properties -C -t my-topic
 ```
+
