@@ -1,10 +1,13 @@
-# Install
+# asyncpg
+
+## Install
 
 ```shell
 pip install sqlalchemy\[asyncio\]
 ```
 
 Create postgresql instanse with docker
+
 ```shell
 # env file with variables
 cat > .env << _EOF_
@@ -20,7 +23,7 @@ docker run -d --name auth-postgres --hostname auth-postgres \
     -p 5432:5432 --env-file .env postgres:13.4-alpine3.14
 ```
 
-# Prepare and run
+## Prepare and run
 
 ```python
 import asyncio
@@ -74,7 +77,7 @@ async def async_main():
         await session.commit()
         # refresh user from db
         await session.refresh(user_db)
-        
+
     print(user_db.id)
 
 # run coroutine

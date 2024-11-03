@@ -2,21 +2,21 @@
 
 - [Install minikube](#install-minikube)
 - [Configuration](#configuration)
-  * [Get list of keys](#get-list-of-keys)
-  * [View current config keys and values](#view-current-config-keys-and-values)
-  * [Get config key value](#get-config-key-value)
-  * [Set config key a new value](#set-config-key-a-new-value)
+  - [Get list of keys](#get-list-of-keys)
+  - [View current config keys and values](#view-current-config-keys-and-values)
+  - [Get config key value](#get-config-key-value)
+  - [Set config key a new value](#set-config-key-a-new-value)
 - [Usage](#usage)
-  * [Create cluster and start](#create-cluster-and-start)
-  * [Addons](#addons)
-    + [List available addons](#list-available-addons)
-    + [Install addon](#install-addon)
-  * [Dashboard addon](#dashboard-addon)
-    + [Create and run dashboard](#create-and-run-dashboard)
-  * [Network and connection](#network-and-connection)
-    + [Connect via service](#connect-via-service)
-    + [Connect using tunnel](#connect-using-tunnel)
-  * [Add nodes to minikube cluster](#add-nodes-to-minikube-cluster)
+  - [Create cluster and start](#create-cluster-and-start)
+  - [Addons](#addons)
+    - [List available addons](#list-available-addons)
+    - [Install addon](#install-addon)
+  - [Dashboard addon](#dashboard-addon)
+    - [Create and run dashboard](#create-and-run-dashboard)
+  - [Network and connection](#network-and-connection)
+    - [Connect via service](#connect-via-service)
+    - [Connect using tunnel](#connect-using-tunnel)
+  - [Add nodes to minikube cluster](#add-nodes-to-minikube-cluster)
 - [Cleanup](#cleanup)
 
 # Install minikube
@@ -44,7 +44,6 @@ minikube config view
 minikube config get driver
 ```
 
-
 ## Set config key a new value
 
 ```shell
@@ -57,6 +56,7 @@ minikube config set driver docker
 
 To create and start earlier created cluster
 Run
+
 ```shell
 minikube start --driver=docker --nodes=1
 ```
@@ -64,11 +64,13 @@ minikube start --driver=docker --nodes=1
 Cluster will be automatically added to your kubectl config as a default context
 
 Get status of cluset
+
 ```shell
 minikube status
 ```
 
 Stop cluster
+
 ```shell
 minikube stop
 ```
@@ -89,7 +91,8 @@ minikube addons enable metrics-server
 
 ## Dashboard addon
 
-### Create and run dashboard 
+### Create and run dashboard
+
 ```shell
 minikube dashboard
 ```
@@ -99,11 +102,13 @@ minikube dashboard
 ### Connect via service
 
 List available services in namespace `default`
+
 ```shell
 minikube service list -n default
 ```
 
 Connect service `service-name` to localhost port
+
 ```shell
 minikube service -n default service-name
 ```
@@ -114,11 +119,13 @@ You can create tunnel to a minikube service.
 Service should be only `loadBalancer` type
 
 List available services in namespace `default`
+
 ```shell
 minikube tunnel list -n default
 ```
 
 Connect
+
 ```shell
 minikube tunnel -n default
 ```
@@ -126,8 +133,9 @@ minikube tunnel -n default
 ## Add nodes to minikube cluster
 
 Before adding be aware of:
-* https://github.com/kubernetes/minikube/issues/8055
-* https://github.com/kubernetes/minikube/issues/10382
+
+- https://github.com/kubernetes/minikube/issues/8055
+- https://github.com/kubernetes/minikube/issues/10382
 
 ```shell
 minikube node add
@@ -139,7 +147,7 @@ minikube node add
 # Stop cluster nodes
 minikube stop
 
-# Delete nodes resources 
+# Delete nodes resources
 minikube delete
 # or
 docker rm minikube

@@ -1,5 +1,6 @@
+# SQLAlchemy + Async
 
-# install
+## install
 
 Install SQLAlchemy, greenlet and databases async drivers
 
@@ -7,7 +8,7 @@ Install SQLAlchemy, greenlet and databases async drivers
 pip3 install sqlalchemy greenlet asyncpg asyncmy pymysql aiosqlite
 ```
 
-# create databases
+## create databases
 
 create docker instances of databases
 
@@ -20,8 +21,8 @@ _EOF
 
 docker run -d --name user-postgres --hostname user-postgres \
            --env-file .env_postgres -p 5432:5432 postgres:13.4-alpine3.14
-           
-cat > .env_mysql << _EOF   
+
+cat > .env_mysql << _EOF
 MYSQL_ROOT_PASSWORD=rootsecret
 MYSQL_DATABASE=user
 MYSQL_USER=user
@@ -32,7 +33,7 @@ docker run -d --name user-mariadb --hostname user-mariadb \
            --env-file .env_mysql -p 3306:3306 mariadb
 ```
 
-# Run test scrypt
+## Run test scrypt
 
 uncomment one of DATABASE_URL you wish to test
 
@@ -94,7 +95,7 @@ async def async_main():
         await session.commit()
         # refresh user from db
         await session.refresh(user_db)
-        
+
     print(user_db.id)
 
 # run coroutine

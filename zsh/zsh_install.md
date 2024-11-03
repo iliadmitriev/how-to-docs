@@ -12,7 +12,7 @@ tags: []
 sudo apt install zsh zsh-antigen zsh-doc zsh-syntax-highlighting zsh-autosuggestions
 ```
 
-# set zsh as default shell
+## set zsh as default shell
 
 ```bash
 chsh -s /usr/bin/zsh
@@ -22,7 +22,6 @@ and don't forget to restart your gnome session to apply changes
 
 on first start press 2
 to populate `~/.zshrc` with default recommended configuration
-
 
 ## install oh-my-zsh dependencies
 
@@ -46,7 +45,6 @@ omz theme use theme
 omz theme set theme
 ```
 
-
 edit file `~/.zshrc` to set defautl theme
 
 ```bash
@@ -60,6 +58,7 @@ set to desirable theme: `michelebologna`
 more themes here https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 add to the end of file:
+
 ```
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 ```
@@ -76,7 +75,7 @@ _EOF_
 
 ## install nerd fonts
 
-###  using `font-manager`
+### using `font-manager`
 
 ```bash
 # install font mamanger
