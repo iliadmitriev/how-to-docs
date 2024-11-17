@@ -89,3 +89,7 @@ unpack somewhere
 install fonts with font-manager
 
 set defualt font for teminal `JetBrainsMonoNL Nerd Font Mono`
+
+### yum based repo
+
+[Fedora 41 docs](https://docs.fedoraproject.org/en-US/quick-docs/fonts/)
