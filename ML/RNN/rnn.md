@@ -35,11 +35,17 @@ $$c^{\langle t\rangle }=\Gamma_u*\tilde{c}^{\langle t\rangle }+(1-\Gamma_u)*c^{\
 - `query` (запрос) - векторы которые нужны в выходной последовательности $h_{t-1}'$
 
 $$a(h_{i}, h_{t-1}') = (W_{k}h_{i})^T(W_{q}h_{t-1}')/\sqrt{d}$$
-$$\alpha_{ti}=SoftMax(a(h_{i}, h'_{t-1}))$$
+
+$$\alpha_{ti}=SoftMax(a(h_{i}, h_{t-1}'))$$
+
 $$c_t=\sum{\alpha_{ti}W_{v}h_{i}}$$
+
 Размерности векторов
+
 $$W_{q}^{d \times dim(h')}$$
+
 $$W_{k}^{d \times dim(h)}$$
+
 $$W_{v}^{d \times dim(h)}$$
 
 ### Формула внимания
