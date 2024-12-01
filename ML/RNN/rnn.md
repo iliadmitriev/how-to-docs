@@ -100,8 +100,8 @@ $\alpha_{ij} = SoftMax_{i} a( W^j_k h_i, W^j_q q )$,
 
 декоррелируются
 
-$$\alpha_{s} \alpha_{j} \to 0$$
+$$(\alpha_{s}^{T} \alpha_{j} \to 0)$$
 
 и разреживаются
 
-$$\alpha_{k} \alpha_{j} \to 1$$
+$$(\alpha_{k}^{T} \alpha_{j} \to 1)$$
