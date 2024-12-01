@@ -34,7 +34,7 @@ $$c^{\langle t\rangle }=\Gamma_u*\tilde{c}^{\langle t\rangle }+(1-\Gamma_u)*c^{\
 - `value` (значение) - векторы, образующие контекст в входной последовательности $h_i$
 - `query` (запрос) - векторы которые нужны в выходной последовательности $h_{t-1}'$
 
-$$a(h_{i}, h_{t-1}') = (W_{k}h_{i})^T(W_{q}h_{t-1}')/\sqrt{d}$$
+$$a(h_{i}, h_{t-1}') = (W_{k}h_{i})^\top(W_{q}h_{t-1}')/\sqrt{d}$$
 
 $$\alpha_{ti}=SoftMax(a(h_{i}, h_{t-1}'))$$
 
@@ -100,8 +100,8 @@ $\alpha_{ij} = SoftMax_{i} a( W^j_k h_i, W^j_q q )$,
 
 декоррелируются
 
-$$(\alpha_{s}^{T} \alpha_{j} \to 0)$$
+$$(\mathbf{\alpha_{s}}^\top \alpha_{j} \to 0)$$
 
 и разреживаются
 
-$$(\alpha_{k}^{T} \alpha_{j} \to 1)$$
+$$(\mathbf{\alpha_{k}}^\top \alpha_{j} \to 1)$$
