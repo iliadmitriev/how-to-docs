@@ -104,4 +104,5 @@ $$(\mathbf{\alpha_{s}}^\top \alpha_{j} \to 0)$$
 
 и разреживаются
 
-$$(\mathbf{\alpha_{k}}^\top \alpha_{j} \to 1)$$
+$$(\mathbf{\alpha_{k}}^\top \alpha_{j} \to 1)$$ 
+$$||AA^\top - I||^2 \to \underset{\{W_k^j, W_q^j\}}{min}$$
