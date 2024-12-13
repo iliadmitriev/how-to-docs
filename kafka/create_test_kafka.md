@@ -46,9 +46,14 @@ cp certs/client.* ./
 Run instance
 
 ```bash
+docker volume create broker-data
+docker volume create broker-config
+
 docker run -d  \
   --name broker-ssl -p 9092:9092 -p 9093:9093 \
   -v $(pwd):/etc/kafka/secrets \
+  -v broker-data:/var/lib/kafka/data \
+  -v broker-config:/mnt/shared/config \
   -e KAFKA_NODE_ID=1 \
   -e KAFKA_PROCESS_ROLES=broker,controller \
   -e KAFKA_LISTENERS=PLAINTEXT://:9092,SSL://:9093,CONTROLLER://:9094 \
@@ -81,4 +86,38 @@ ssl.truststore.location=kafka.truststore.jks
 ssl.truststore.password=$(cat kafka.truststore.pas)
 ssl.enabled.protocols=TLSv1.2,TLSv1.1,TLSv1
 _EOF_
+```
+
+Extract client private key
+
+```bash
+keytool -importkeystore  \
+   -srckeystore client.keystore.jks \
+   -srcstorepass $(cat client.keystore.pas) \
+   -srckeypass $(cat client.key.pas) \
+   -srcalias localhost \
+   -destkeystore client.p12 \
+   -deststoretype pkcs12 -noprompt
+
+openssl pkcs12 -in client.p12 -nodes -noenc -nocerts > client.key.pem
+```
+
+Export CA certifiacte
+
+```bash
+keytool -export -rfc -keystore kafka.truststore.jks \
+    -storepass $(cat kafka.truststore.pas) \
+    -alias CARoot -file client.ca.pem
+```
+
+Test `kcat`
+
+```bash
+kcat -b ssl://127.0.0.1:9093 \
+  -X security.protocol=SSL \
+  -X ssl.key.location=client.key.pem \
+  -X ssl.certificate.location=client.cert.pem \
+  -X ssl.ca.location=client.ca.pem \
+  -X ssl.endpoint.identification.algorithm=none \
+  -L
 ```
