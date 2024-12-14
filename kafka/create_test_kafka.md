@@ -41,6 +41,7 @@ cd ../
 
 cp certs/kafka.* ./
 cp certs/client.* ./
+cp certs/root.pem ./client.ca.pem
 ```
 
 Run instance
@@ -88,7 +89,7 @@ ssl.enabled.protocols=TLSv1.2,TLSv1.1,TLSv1
 _EOF_
 ```
 
-Extract client private key
+Extract client private key (optional)
 
 ```bash
 keytool -importkeystore  \
@@ -102,12 +103,19 @@ keytool -importkeystore  \
 openssl pkcs12 -in client.p12 -nodes -noenc -nocerts > client.key.pem
 ```
 
-Export CA certifiacte
+Export CA certifiacte (optional)
 
 ```bash
 keytool -export -rfc -keystore kafka.truststore.jks \
     -storepass $(cat kafka.truststore.pas) \
     -alias CARoot -file client.ca.pem
+```
+
+Test `kafka-topics`
+
+```bash
+kafka-topics --command-config client-connect.properties \
+    --bootstrap-server "SSL://localhost:9093" --describe
 ```
 
 Test `kcat`
@@ -120,4 +128,28 @@ kcat -b ssl://127.0.0.1:9093 \
   -X ssl.ca.location=client.ca.pem \
   -X ssl.endpoint.identification.algorithm=none \
   -L
+```
+
+Properties file
+
+```bash
+cat > kcat.properties << _EOF_
+security.protocol=SSL
+ssl.ca.location=client.ca.pem
+ssl.keystore.location=client.p12
+ssl.keystore.password=$(cat client.keystore.pas)
+_EOF_
+
+# Or alternatively
+
+cat > kcat.properties << _EOF_
+security.protocol=SSL
+ssl.ca.location=client.ca.pem
+ssl.key.location=client.key.pem
+ssl.certificate.location=client.cert.pem
+_EOF_
+```
+
+```bash
+kcat -b localhost:9093 -F kcat.properties -L
 ```
