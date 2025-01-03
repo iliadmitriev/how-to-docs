@@ -1,5 +1,25 @@
 # torch
 
+## Gradient flow of a simple example
+
+```python
+import torch
+
+
+X = torch.linspace(0, 2 * torch.pi, 10)
+Y = X.sin()
+
+W = torch.randn((10, 10), requires_grad=True)
+
+for i in range(5):
+    p = W @ X
+    loss = (p - Y).pow(2).mean()
+    loss.backward()
+    W.data -= 0.01 * W.grad
+    W.grad = None
+
+```
+
 ## Gradient flow of a simple linear equation
 
 ```bash
