@@ -1,4 +1,4 @@
-# torch
+# torch notes
 
 ## Gradient flow of a simple example
 

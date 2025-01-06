@@ -1,5 +1,5 @@
 # Neural Networks
 
 1. [Recurrent neural networks](RNN/rnn.md)
-2. [torch](ML/torch/README.md)
-3. [top torch functions](ML/torch/functions.md)
+2. [top torch functions](torch/functions.md)
+3. [torch notes](torch/README.md)
