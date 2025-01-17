@@ -66,8 +66,14 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 or just run script
 
 ```bash
-sed -i.bak s/ZSH_THEME=".*"/ZSH_THEME=\"michelebologna\"/ ~/.zshrc
+omz theme list
+omz theme set michelebologna
 
+# or
+sed -i.bak s/ZSH_THEME=".*"/ZSH_THEME=\"michelebologna\"/ ~/.zshrc
+```
+
+```bash
 >>~/.zshrc<<_EOF_
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 _EOF_
@@ -93,3 +99,38 @@ set defualt font for teminal `JetBrainsMonoNL Nerd Font Mono`
 ### yum based repo
 
 [Fedora 41 docs](https://docs.fedoraproject.org/en-US/quick-docs/fonts/)
+
+## syntax highlight
+
+macOS
+
+```bash
+brew install zsh-fast-syntax-highlighting
+>>~/.zshrc<<_EOF_
+source ${HOMEBREW_PREFIX}/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+_EOF_
+```
+
+Linux
+
+```bash
+apt install zsh-fast-syntax-highlighting
+source /usr/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+```
+
+fix slow pasting with zsh-autosuggestions [see](https://github.com/zsh-users/zsh-autosuggestions/issues/238#issuecomment-389324292)
+
+```zsh
+# This speeds up pasting w/ autosuggest
+# https://github.com/zsh-users/zsh-autosuggestions/issues/238
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+```
