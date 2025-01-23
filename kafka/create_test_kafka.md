@@ -75,6 +75,8 @@ docker run -d  \
   apache/kafka:latest
 ```
 
+### Kafka tools
+
 Generate `client-connect.properties` file
 
 ```bash
@@ -89,36 +91,38 @@ ssl.enabled.protocols=TLSv1.2,TLSv1.1,TLSv1
 _EOF_
 ```
 
-Extract client private key (optional)
-
-```bash
-keytool -importkeystore  \
-   -srckeystore client.keystore.jks \
-   -srcstorepass $(cat client.keystore.pas) \
-   -srckeypass $(cat client.key.pas) \
-   -srcalias localhost \
-   -destkeystore client.p12 \
-   -deststoretype pkcs12 -noprompt
-
-openssl pkcs12 -in client.p12 -nodes -noenc -nocerts > client.key.pem
-```
-
-Export CA certifiacte (optional)
-
-```bash
-keytool -export -rfc -keystore kafka.truststore.jks \
-    -storepass $(cat kafka.truststore.pas) \
-    -alias CARoot -file client.ca.pem
-```
-
-Test `kafka-topics`
+List and describe server topics with `kafka-topics`
 
 ```bash
 kafka-topics --command-config client-connect.properties \
     --bootstrap-server "SSL://localhost:9093" --describe
 ```
 
-Test `kcat`
+Create a new topic `topic1`
+
+```bash
+kafka-topics --command-config client-connect.properties \
+    --bootstrap-server "SSL://localhost:9093" --create --topic topic1
+```
+
+Consume messages from `topic1`
+
+```bash
+kafka-console-consumer --consumer.config client-connect.properties \
+    --bootstrap-server "SSL://localhost:9093" --topic topic1
+```
+
+Send message to `topic1`
+
+```bash
+echo '{"message": "hello world"}' |
+  kafka-console-producer --producer.config client-connect.properties \
+    --bootstrap-server "SSL://localhost:9093" --topic topic1
+```
+
+### kcat tool
+
+List topics with `kcat`
 
 ```bash
 kcat -b ssl://127.0.0.1:9093 \
@@ -130,7 +134,7 @@ kcat -b ssl://127.0.0.1:9093 \
   -L
 ```
 
-Properties file
+Create properties file
 
 ```bash
 cat > kcat.properties << _EOF_
@@ -152,4 +156,16 @@ _EOF_
 
 ```bash
 kcat -b localhost:9093 -F kcat.properties -L
+```
+
+Consume `topic1` with `kcat`
+
+```bash
+kcat -b localhost:9093 -F kcat.properties -C -t topic1
+```
+
+Produce message to `topic1` with `kcat`
+
+```bash
+echo '{"message": "hello world"}' | kcat -b localhost:9093 -F kcat.properties -P -t topic1
 ```
