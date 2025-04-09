@@ -1,10 +1,11 @@
-
 Install SQLAlchemy
+
 ```shell
 pip install sqlalchemy
 ```
 
 Prepare and run
+
 ```python
 # imports
 from sqlalchemy import create_engine, Boolean, Column, ForeignKey, Integer, String
@@ -48,4 +49,3 @@ db.refresh(user_db)
 # get user id
 print(user_db.id)
 ```
-

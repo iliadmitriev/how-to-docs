@@ -79,4 +79,3 @@ ssl.key.password=keysecret
 ```bash
 kcat -b localhost:9093 -F client.properties -C -t my-topic
 ```
-

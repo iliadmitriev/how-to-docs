@@ -11,7 +11,7 @@ echo '{"message": "test message 1"}' | kafka-console-producer --bootstrap-server
 
 ```bash
 kafka-get-offsets --bootstrap-server localhost:9092 --topic test-topic
-# or 
+# or
 kafka-run-class kafka.tools.GetOffsetShell --bootstrap-server localhost:9092 --topic test-topic
 ```
 
@@ -72,7 +72,7 @@ _EOF_
 Delete (shift low watermark)
 
 ```bash
-kafka-delete-records --bootstrap-server localhost:9092 --offset-json-file __del.json 
+kafka-delete-records --bootstrap-server localhost:9092 --offset-json-file __del.json
 ```
 
 ```bash

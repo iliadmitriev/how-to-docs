@@ -21,7 +21,7 @@ docker run -d --name user-mariadb --hostname user-mariadb \
 brew install mysql
 ```
 
-#### connect from macOS to MariaDB 
+#### connect from macOS to MariaDB
 
 ```shell
 mysql -h 192.168.10.1 -P 3306 -u user -D user -p

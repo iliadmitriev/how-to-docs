@@ -7,3 +7,9 @@ xattr -cr /Applications/NewApp.app
 xcode-select --install
 sudo codesign --force --deep --sign - /Applications/NewApp.app
 ```
+
+Reinstall Rosetta 2
+
+```bash
+softwareupdate --install-rosetta
+```

@@ -1,4 +1,3 @@
-
 ```python
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql

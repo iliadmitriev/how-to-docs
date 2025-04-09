@@ -1,7 +1,7 @@
 # Setting up nginx webdav with http basic auth
 
-
 Install apache2 tools for adding users
+
 ```shell
 sudo yum install httpd-tools nginx
 sudo touch /etc/nginx/htpasswd
@@ -9,6 +9,7 @@ sudo htpasswd -c /etc/nginx/htpasswd username
 ```
 
 create `nginx.conf`
+
 ```
 user nginx;
 worker_processes auto;
@@ -72,11 +73,13 @@ http {
 ```
 
 start service
+
 ```shell
 service nginx start
 ```
 
 enable service
+
 ```shell
 sudo systemctl enable nginx
 ```

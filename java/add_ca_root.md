@@ -4,7 +4,6 @@ Root CA certificates is stored in file
 
 default password is `changeit`
 
-
 Find keytool util
 
 ```shell

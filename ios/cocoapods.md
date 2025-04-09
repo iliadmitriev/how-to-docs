@@ -5,12 +5,14 @@ CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects
 # Install
 
 install Ruby gem cocoa pods
+
 ```shell
 sudo gem install cocoapods
 ```
 
 install Macbook M1 Apple Silicone
-install [brew](https://docs.brew.sh/Installation) 
+install [brew](https://docs.brew.sh/Installation)
+
 ```shell
 brew install cocoapods
 ```
@@ -20,6 +22,7 @@ brew install cocoapods
 first create Xcode project `project`
 
 create file `Podfile` in project directory
+
 ```ruby
 platform :ios, '13.0'
 
@@ -42,6 +45,7 @@ end
 # Using
 
 Install pods specified in `Podfile`
+
 ```shell
 pod install
 ```
@@ -49,5 +53,6 @@ pod install
 Open with Xcode file `project.xcworkspace` and not `project.xcodeproj`
 
 # References
+
 1. [original documentation](https://cocoapods.org)
 2. [cocoapods guides](https://guides.cocoapods.org/using/using-cocoapods.html)

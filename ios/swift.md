@@ -1,12 +1,12 @@
 - [Types](#types)
-  * [Numbers](#numbers)
-    * [Operations](#operations)
-  * [Strings](#strings)
-  * [Arrays](#arrays)
-  * [Dictionaries](#dictionaries)
-  * [Conditionals](#conditionals)
-  * [Any type](#any-type)
-  * [Enums](#enums)
+  - [Numbers](#numbers)
+    - [Operations](#operations)
+  - [Strings](#strings)
+  - [Arrays](#arrays)
+  - [Dictionaries](#dictionaries)
+  - [Conditionals](#conditionals)
+  - [Any type](#any-type)
+  - [Enums](#enums)
 - [Classes](#classes)
 - [Protocols](#protocols)
 - [Strong and weak memory](#strong-and-weak-memory)
@@ -277,7 +277,7 @@ class BlogPost {
     var body = "hey"
     var author: Person?
     var numberOfComments: Int = 0
-    
+
     // method returning value
     func addComment() -> Int {
         self.numberOfComments += 1
@@ -312,7 +312,6 @@ if let myTitle = myPostTwo.title {
 }
 ```
 
-
 # Protocols
 
 Protocols is an analogue of Java interface
@@ -335,34 +334,34 @@ class BMW: Car, CarDataSource {
     var currentSpeed: Double
     var color: String {
         set {
-            
+
         }
         get {
             return "red"
         }
     }
-    
-    
+
+
     override init() {
         self.currentSpeed = 0.0
         super.init()
     }
-    
+
     func isAllWheelDrive() -> Bool {
         return true
     }
-    
+
     func drive() -> Double {
         currentSpeed = 1.0
         return currentSpeed
     }
-    
+
     func speedUP(up: Double = 1.1) -> Double{
         currentSpeed *= up
         return currentSpeed
     }
-    
-    
+
+
 }
 ```
 
@@ -450,4 +449,5 @@ print(str.substring(with: 0..<5))
 
 1. [Swift language guide](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
 2. [Language reference](https://docs.swift.org/swift-book/ReferenceManual/Types.html)
-3. [Optional](https://habr.com/ru/post/338766/) 
+3. [Optional](https://habr.com/ru/post/338766/)
+

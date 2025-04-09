@@ -4,7 +4,6 @@ aliases: []
 tags: []
 ---
 
-
 #### CamelCase to snake_case
 
 ```python
@@ -28,7 +27,7 @@ logging.basicConfig(level=logging.DEBUG)
 ```python
 def len_str(s: str) -> int:
     return len(s)
-    
+
 dis.dis(len_str)
   2           0 LOAD_GLOBAL              0 (len)
               2 LOAD_FAST                0 (s)
@@ -37,6 +36,7 @@ dis.dis(len_str)
 ```
 
 #### Jinga one-liner test
+
 ```python
 from jinja2 import Environment
 import jinja2.filters
@@ -81,6 +81,7 @@ print(sum(l, list()))
 #### Profile python code
 
 collect stats:
+
 ```python
 import cProfile
 with cProfile.Profile(builtins=False) as pr:
@@ -89,13 +90,15 @@ pr.dump_stats("tmp.stats")
 ```
 
 vizualize:
+
 ```shell
 brew install graphviz
-pip3 install gprof2dot 
-gprof2dot -f pstats tmp.stats | dot -Tsvg -o tmp.svg 
-````
+pip3 install gprof2dot
+gprof2dot -f pstats tmp.stats | dot -Tsvg -o tmp.svg
+```
 
 visualize with QCacheGrind:
+
 ```shell
 pip3 install pyprof2calltree
 pyprof2calltree -i tmp.stats -o tmp.calltree
