@@ -26,3 +26,4 @@ How to documents collection
 22. [Mac OS](macos/readme.md)
 23. [vim/neovim](neovim/README.md#vim-cheat-sheet)
 24. [AI tools tier list](AI/README.md)
+25. [ghostty](ghostty/README.md)
