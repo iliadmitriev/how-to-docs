@@ -1401,7 +1401,7 @@ There is two types of affinity and anti affinity:
 - `preferredDuringSchedulingIgnoredDuringExecution` is a set of soft rules
 - `requiredDuringSchedulingIgnoredDuringExecution` is hard requirements
 
-Let's assume we have 3 worker nodes in our kubernetes cluster (for example we will use [minikube setup](minikube.md))
+Let's assume we have 3 worker nodes in our kubernetes cluster (for example we will use [minikube setup](minikube.md#add-nodes-to-minikube-cluster))
 
 ```shell
 kubectl get nodes
@@ -1723,7 +1723,7 @@ kubectl scale --current-replicas=3 --replicas=5 \
 
 Before you begin
 
-[Metrics server](https://github.com/kubernetes-sigs/metrics-server) monitoring needs to be deployed in the cluster to provide metrics through the Metrics API. Addon [metrics-server](minikube.md#add-nodes-to-minikube-cluster) should be enabled for [minikube](minikube.md) setup
+[Metrics server](https://github.com/kubernetes-sigs/metrics-server) monitoring needs to be deployed in the cluster to provide metrics through the Metrics API. Addon [metrics-server](minikube.md#add-nodes-to-minikube-cluster) should be enabled for [minikube](minikube.md#contents) setup
 
 Check if metrics server properly works
 
@@ -2106,4 +2106,3 @@ Hostname: web-79d88c97d6-vdqdp
   - [Workloads](https://kubernetes.io/docs/concepts/workloads/)
   - [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
   - [Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
-
