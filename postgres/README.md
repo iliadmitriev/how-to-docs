@@ -72,3 +72,11 @@ SELECT
    EXTRACT(EPOCH FROM pg_last_xact_replay_timestamp())
   )::int AS lag;
 ```
+
+## Pause/resume slave
+
+```sql
+SELECT pg_wal_replay_pause();
+SELECT pg_get_wal_replay_pause_state();
+SELECT pg_wal_replay_resume();
+```
