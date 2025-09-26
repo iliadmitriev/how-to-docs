@@ -24,6 +24,6 @@ How to documents collection
 20. [S3](s3/S3.md)
 21. [Linux](linux/readme.md)
 22. [Mac OS](macos/readme.md)
-23. [vim/neovim](neovim/README.md#vim-cheat-sheet)
+23. [vim/neovim](/neovim/README.md)
 24. [AI tools tier list](AI/README.md)
 25. [ghostty](ghostty/README.md)

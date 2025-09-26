@@ -1,14 +1,8 @@
 # Vim cheat sheet
 
-Starting Vim
-
-    vim [file1] [file2] ...
-
----
-
-# Table of contents
-
-- [Vim modality](#vim-modality)
+<!--toc:start-->
+- [Vim cheat sheet](#vim-cheat-sheet)
+  - [Vim modality](#vim-modality)
   - [Normal mode](#normal-mode)
     - [motions](#motions)
       - [arrow keys](#arrow-keys)
@@ -18,11 +12,11 @@ Starting Vim
       - [file](#file)
     - [searching](#searching)
     - [jumps and marks](#jumps-and-marks)
-    - [edit](#edit)
+    - [Edit](#edit)
       - [goto insert mode](#goto-insert-mode)
       - [stay in command mode](#stay-in-command-mode)
       - [operators](#operators)
-    - [utilities](#utilities)
+    - [Utilities](#utilities)
       - [registers](#registers)
       - [macro](#macro)
       - [code folding](#code-folding)
@@ -37,27 +31,29 @@ Starting Vim
     - [file and buffers](#file-and-buffers)
     - [shell](#shell)
     - [windows and splits](#windows-and-splits)
-    - [spelling](#spelling)
     - [tabs](#tabs)
     - [help](#help)
       - [special help sections](#special-help-sections)
     - [options](#options)
       - [essential options](#essential-options)
     - [substitute](#substitute)
-    - [tags (ctags)](#tags-ctags)
-- [Vimdiff](#vimdiff)
+    - [tags / ctags](#tags-ctags)
+  - [Vimdiff](#vimdiff)
+<!--toc:end-->
+
+Starting Vim
+
+    vim [file1] [file2] ...
 
 ---
 
-# Vim modality
+## Vim modality
 
 vim has 3 main modes:
 
 - [Normal](#normal-mode) mode: For navigation and manipulation of text. This is the mode that vim will usually start in
 - [Insert](#insert-mode) (edit) mode: For inserting new text, where you type into your file like other editors.
 - [Command](#command-mode) mode: For executing extra commands like the help, shell, ...
-
-[toc](#table-of-contents)
 
 ## Normal mode
 
@@ -78,8 +74,6 @@ move around the text (file) by:
                      <ctrl+d>
                      <ctrl+f>
                         G
-
-[toc](#table-of-contents)
 
 #### arrow keys
 
@@ -123,8 +117,6 @@ move around the text (file) by:
 - `gd`: go to definition of current word
 - `gf`: go to the file (under the cursor)
 
-[toc](#table-of-contents)
-
 ### searching
 
 searching in _Normal Mode_:
@@ -136,8 +128,6 @@ searching in _Normal Mode_:
 - `/[pattern]` / `?[pattern]`: search forward / backward by matching pattern
 - `n` / `N`: next / previous result
 - `[I`: show lines with matching word under cursor
-
-[toc](#table-of-contents)
 
 ### jumps and marks
 
@@ -151,8 +141,6 @@ searching in _Normal Mode_:
 - `%`: matching (), {}, []
 - `m[char]` / `'[char]`: mark by / jump to `[char]`
 - `m[CHAR]` / `'[CHAR]`: mark by / jump to `[CHAR]` across the files.
-
-[toc](#table-of-contents)
 
 ### Edit
 
@@ -202,8 +190,6 @@ alignment:
 - `><CR>`, `>>`: shift right, increase indent
 - `<<CR>`, `<<`: shift left, decrease indent
 
-[toc](#table-of-contents)
-
 #### operators
 
 operator are generally constructed as:
@@ -235,8 +221,6 @@ examples:
 - `ci"`: change the text inside ""
 - `gUiw`: make the word under the cursor to upper case
 
-[toc](#table-of-contents)
-
 ### Utilities
 
 #### registers
@@ -266,8 +250,6 @@ examples:
 - `zv`: expand folds to reveal the cursor
 - `zk` / `zj`: move to previous / next fold
 
-[toc](#table-of-contents)
-
 #### windows and split
 
 - `<ctrl+w> s` = `:sp[lit]`: split current window horizontally
@@ -285,16 +267,12 @@ examples:
 - `<ctrl+w> _`: minimize current window
 - `<ctrl+w> T`: move current window to new tab
 
-[toc](#table-of-contents)
-
 #### spell checking
 
 - `]s` / `[s`: jump to next / previous spelling error
 - `z=`: suggest corrections for current word
 - `zg`: add current word to the dictionary
 - `zw`: remove current word from dictionary
-
-[toc](#table-of-contents)
 
 ## Insert mode
 
@@ -315,8 +293,6 @@ examples:
 - `<ctrl+r>[char]`: insert content of register `[char]`
 - `<ctrl+t>`: increase line indent
 - `<ctrl+u>`: decrease line indent
-
-[toc](#table-of-contents)
 
 ## Command mode
 
@@ -348,8 +324,6 @@ examples:
 - `:bp[rev]`: jump to previous buffer
 - `:bd[elete]`: remove file from buffer list
 
-[toc](#table-of-contents)
-
 ### shell
 
 - `:mak[e]`: run make in current directory
@@ -357,16 +331,12 @@ examples:
 - `:!`: executes external shell command
 - `:r[ead]`: read external program output into current file
 
-[toc](#table-of-contents)
-
 ### windows and splits
 
 - `:sp[lit]` = `<ctrl+w> s`: split current window horizontally
 - `:vs[plit]` = `<ctrl+w> v`: split current window vertically
 - `:cl[ose]` = `<ctrl+w> c`: close current window
 - `:on[ly]` = `<ctrl+w> o`: close all windows except current one
-
-[toc](#table-of-contents)
 
 ### tabs
 
@@ -376,8 +346,6 @@ examples:
 - `:tabn <n>`: goto tab `n`
 - `:tabp` = `tabN` = `<ctrl+PageUp>`: previous tab
 - `:tabe [file]`: create a new blank tab or opens `file` in that tab
-
-[toc](#table-of-contents)
 
 ### help
 
@@ -402,8 +370,6 @@ examples:
 - `:h registers`
 - `:h pattern-searches`
 
-[toc](#table-of-contents)
-
 ### options
 
 - `:set <opt>?`: shows current option value
@@ -427,8 +393,6 @@ examples:
 - `foldmethod` or `fdm`: fold method
 - `spell` / `nospell`: turn spell checking enable or disable.
 
-[toc](#table-of-contents)
-
 ### substitute
 
 - `:s/search/replace/`: basic substitution on a line
@@ -443,9 +407,7 @@ by executing `$> ctags -r` under project tree:
 - `:tag <name>TAB`: goes to tag name
 - `<ctrl+]>`: goes to the tag under cursor
 
-[toc](#table-of-contents)
-
-# Vimdiff
+## Vimdiff
 
 - `do`: get changes from other window into the current window
 - `dp`: put the changes from current window into the other window
