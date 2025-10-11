@@ -32,3 +32,9 @@ for app in /Applications/*.app; do
     fi
 done
 ```
+
+stay awake
+
+```bash
+caffeinate -duims
+```
